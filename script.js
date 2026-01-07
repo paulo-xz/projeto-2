@@ -1,43 +1,48 @@
 function abrirAba(id) {
-  const secoes = document.querySelectorAll("section");
-  secoes.forEach(secao => secao.classList.remove("ativa"));
-
+  document.querySelectorAll("section").forEach(s =>
+    s.classList.remove("ativa")
+  );
   document.getElementById(id).classList.add("ativa");
 }
 
-// Economia mensal
-function calcularMensal() {
-  const renda = Number(document.getElementById("renda").value);
+function calcularMeta() {
+  const salario = Number(document.getElementById("salario").value);
   const gastos = Number(document.getElementById("gastos").value);
-  const resultado = document.getElementById("resultadoMensal");
+  const meta = Number(document.getElementById("meta").value);
+  const tempo = Number(document.getElementById("tempo").value);
+  const resultado = document.getElementById("resultadoMeta");
 
-  if (renda <= 0 || gastos < 0) {
-    resultado.innerText = "⚠️ Preencha valores válidos";
+  if (!salario || !meta || !tempo) {
+    resultado.innerText = "Preencha todos os campos corretamente.";
     return;
   }
 
-  const economia = renda - gastos;
+  const sobra = salario - gastos;
+  const necessario = meta / tempo;
 
-  if (economia > 0) {
-    resultado.innerText = `Você economiza R$ ${economia.toFixed(2)} por mês ✅`;
-  } else if (economia === 0) {
-    resultado.innerText = "Você não está economizando nem gastando a mais ⚠️";
+  if (necessario > sobra) {
+    resultado.innerText =
+      "⚠️ A meta é alta para sua realidade atual. Ajuste o prazo ou gastos.";
   } else {
-    resultado.innerText = "Você está gastando mais do que ganha ❌";
+    resultado.innerText =
+      `Você deve guardar aproximadamente ${necessario.toFixed(2)} por mês.`;
   }
+
+  desenharGrafico(salario, gastos, meta);
 }
 
-// Meta anual
-function calcularMeta() {
-  const meta = Number(document.getElementById("meta").value);
-  const resultado = document.getElementById("resultadoAnual");
+function desenharGrafico(salario, gastos, meta) {
+  const canvas = document.getElementById("graficoCanvas");
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  if (meta <= 0) {
-    resultado.innerText = "⚠️ Insira uma meta válida";
-    return;
-  }
+  ctx.fillStyle = "green";
+  ctx.fillRect(50, 200 - salario / 50, 40, salario / 50);
 
-  const mensal = (meta / 12).toFixed(2);
-  resultado.innerText =
-    `Para atingir R$ ${meta.toFixed(2)} no ano, economize R$ ${mensal} por mês 💡`;
+  ctx.fillStyle = "red";
+  ctx.fillRect(120, 200 - gastos / 50, 40, gastos / 50);
+
+  ctx.fillStyle = "white";
+  ctx.fillText("Receita", 50, 190);
+  ctx.fillText("Gastos", 120, 190);
 }
