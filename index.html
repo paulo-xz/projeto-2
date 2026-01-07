@@ -8,56 +8,33 @@
 </head>
 <body>
 
-<!-- INTRO -->
+<!-- ENTRADA -->
 <div id="intro">
-  <div id="intro-dollar">$</div>
-  <div id="intro-text">MyMoney$</div>
-</div>
-
-<!-- TRANSIÇÃO -->
-<div id="transition">
-  <div id="transition-dollar">$</div>
+  <h1 class="intro-title">MyMoney$</h1>
 </div>
 
 <header class="topo">
   <h1 id="bemvindo">MyMoney$</h1>
 </header>
 
-<!-- PERFIL LATERAL -->
-<aside id="perfilLateral">
-  <h3>Seu Perfil</h3>
-  <input id="nomeUsuario" placeholder="Nome">
-  <input id="idadeUsuario" type="number" placeholder="Idade">
-  <input id="paisUsuario" placeholder="País">
-  <input type="file">
-  <button onclick="salvarPerfil()">Salvar</button>
-
-  <h4>Configurações</h4>
-  <button onclick="tema('roxo')">Preto & Roxo</button>
-  <button onclick="tema('verde')">Verde & Preto</button>
-  <button onclick="tema('claro')">Verde & Branco</button>
-</aside>
-
-<!-- ABAS -->
 <section id="reflexao" class="ativa">
   <div class="card">
     <h2>Bem-vindo.</h2>
     <p>
-      Quem não controla o dinheiro, trabalha a vida inteira para ele.
-      Aqui você aprende a fazer o dinheiro trabalhar para você.
+      O dinheiro não some. Ele apenas vai para quem sabe controlá-lo.
     </p>
   </div>
 
   <div class="card">
     <p>
-      Cada mês sem planejamento é um mês mais longe da sua liberdade financeira.
+      Cada decisão financeira de hoje constrói ou destrói seu amanhã.
     </p>
   </div>
 
   <div class="card">
     <p>
-      Você não precisa ganhar mais.
-      Precisa usar melhor o que já ganha.
+      Não é sobre ganhar mais.  
+      É sobre usar melhor o que você já ganha.
     </p>
   </div>
 </section>
@@ -68,9 +45,11 @@
     <input id="gastos" type="number" placeholder="Gastos mensais">
     <input id="meta" type="number" placeholder="Objetivo final">
     <input id="meses" type="number" placeholder="Em quantos meses">
+
     <button onclick="calcularPerfil()">Calcular</button>
     <p id="resultadoPerfil"></p>
-    <button onclick="irPlano()">Estou pronto</button>
+
+    <button onclick="irPlano()">Estou pronto para economizar</button>
   </div>
 </section>
 
@@ -114,13 +93,12 @@
     <div class="plano vip">
       <h3>VIP — ILIMITADO</h3>
       <p>✔ Todas as vantagens</p>
-      <p>✔ Perfis empresariais ilimitados</p>
-      <p>✔ Crescimento pessoal e empresarial</p>
+      <p>✔ Perfis ilimitados</p>
+      <p>✔ Crescimento financeiro pessoal e empresarial</p>
     </div>
   </div>
 </section>
 
-<!-- MENU -->
 <nav>
   <button onclick="abrirAba('reflexao')">❓</button>
   <button onclick="abrirAba('perfil')">👤</button>
