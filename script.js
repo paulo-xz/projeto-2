@@ -1,62 +1,51 @@
-function trocarAba(id) {
-  const overlay = document.getElementById("overlay");
-  overlay.style.display = "flex";
+let dados = {};
 
-  setTimeout(() => {
+function abrirAba(id) {
+  transicao(() => {
     document.querySelectorAll("section").forEach(s =>
       s.classList.remove("ativa")
     );
     document.getElementById(id).classList.add("ativa");
-    overlay.style.display = "none";
-  }, 600);
+  });
 }
 
-// MÁSCARA DE DINHEIRO
-["salario", "gastos", "meta"].forEach(id => {
-  const el = document.getElementById(id);
-  el.addEventListener("input", () => {
-    let v = el.value.replace(/\D/g, "");
-    v = (Number(v) / 100).toFixed(2);
-    el.value = "$ " + v;
-  });
-});
+function calcularPerfil() {
+  const salario = Number(document.getElementById("salario").value);
+  const gastos = Number(document.getElementById("gastos").value);
+  const meta = Number(document.getElementById("meta").value);
+  const meses = Number(document.getElementById("meses").value);
 
-function calcularPlano() {
-  const salario = parseFloat(salarioLimpo("salario"));
-  const gastos = parseFloat(salarioLimpo("gastos"));
-  const meta = parseFloat(salarioLimpo("meta"));
-  const tempo = Number(document.getElementById("tempo").value);
+  dados = { salario, gastos, meta, meses };
 
   const sobra = salario - gastos;
-  const mensal = meta / tempo;
+  const porMes = meta / meses;
 
-  const r = document.getElementById("resultado");
+  document.getElementById("resultadoPerfil").innerText =
+    `Você precisará guardar $${porMes.toFixed(2)} por mês.`;
 
-  if (mensal > sobra) {
-    alert("Conheça o MyMoney$PRO para acelerar sua meta com investimentos inteligentes.");
-  } else {
-    r.innerText = `Guarde aproximadamente $ ${mensal.toFixed(2)} por mês.`;
+  if (porMes > sobra) {
+    abrirAba("premium");
   }
-
-  desenharGrafico(salario, gastos);
 }
 
-function salarioLimpo(id){
-  return document.getElementById(id).value.replace(/[^0-9.]/g,"");
+function irParaPlano() {
+  const { meta, meses } = dados;
+  const valor = (meta / meses).toFixed(2);
+
+  document.getElementById("textoPlano").innerText =
+    "A chave para juntar dinheiro é constância, pequenas decisões corretas e um plano que respeita sua realidade.";
+
+  document.getElementById("valorMensal").innerText =
+    `$${valor} por mês durante ${meses} meses`;
+
+  abrirAba("economia");
 }
 
-function desenharGrafico(salario, gastos){
-  const c = document.getElementById("grafico");
-  const ctx = c.getContext("2d");
-  ctx.clearRect(0,0,c.width,c.height);
-
-  ctx.strokeStyle = "#6a00ff";
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-
-  for(let i=0;i<12;i++){
-    const y = 200 - (salario - gastos)/20 + i;
-    ctx.lineTo(20 + i*25, y);
-  }
-  ctx.stroke();
+function transicao(callback) {
+  const t = document.getElementById("transition");
+  t.style.display = "flex";
+  setTimeout(() => {
+    t.style.display = "none";
+    callback();
+  }, 800);
 }
