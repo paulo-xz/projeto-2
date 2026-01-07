@@ -1,48 +1,62 @@
-function abrirAba(id) {
-  document.querySelectorAll("section").forEach(s =>
-    s.classList.remove("ativa")
-  );
-  document.getElementById(id).classList.add("ativa");
+function trocarAba(id) {
+  const overlay = document.getElementById("overlay");
+  overlay.style.display = "flex";
+
+  setTimeout(() => {
+    document.querySelectorAll("section").forEach(s =>
+      s.classList.remove("ativa")
+    );
+    document.getElementById(id).classList.add("ativa");
+    overlay.style.display = "none";
+  }, 600);
 }
 
-function calcularMeta() {
-  const salario = Number(document.getElementById("salario").value);
-  const gastos = Number(document.getElementById("gastos").value);
-  const meta = Number(document.getElementById("meta").value);
-  const tempo = Number(document.getElementById("tempo").value);
-  const resultado = document.getElementById("resultadoMeta");
+// MÁSCARA DE DINHEIRO
+["salario", "gastos", "meta"].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener("input", () => {
+    let v = el.value.replace(/\D/g, "");
+    v = (Number(v) / 100).toFixed(2);
+    el.value = "$ " + v;
+  });
+});
 
-  if (!salario || !meta || !tempo) {
-    resultado.innerText = "Preencha todos os campos corretamente.";
-    return;
-  }
+function calcularPlano() {
+  const salario = parseFloat(salarioLimpo("salario"));
+  const gastos = parseFloat(salarioLimpo("gastos"));
+  const meta = parseFloat(salarioLimpo("meta"));
+  const tempo = Number(document.getElementById("tempo").value);
 
   const sobra = salario - gastos;
-  const necessario = meta / tempo;
+  const mensal = meta / tempo;
 
-  if (necessario > sobra) {
-    resultado.innerText =
-      "⚠️ A meta é alta para sua realidade atual. Ajuste o prazo ou gastos.";
+  const r = document.getElementById("resultado");
+
+  if (mensal > sobra) {
+    alert("Conheça o MyMoney$PRO para acelerar sua meta com investimentos inteligentes.");
   } else {
-    resultado.innerText =
-      `Você deve guardar aproximadamente ${necessario.toFixed(2)} por mês.`;
+    r.innerText = `Guarde aproximadamente $ ${mensal.toFixed(2)} por mês.`;
   }
 
-  desenharGrafico(salario, gastos, meta);
+  desenharGrafico(salario, gastos);
 }
 
-function desenharGrafico(salario, gastos, meta) {
-  const canvas = document.getElementById("graficoCanvas");
-  const ctx = canvas.getContext("2d");
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+function salarioLimpo(id){
+  return document.getElementById(id).value.replace(/[^0-9.]/g,"");
+}
 
-  ctx.fillStyle = "green";
-  ctx.fillRect(50, 200 - salario / 50, 40, salario / 50);
+function desenharGrafico(salario, gastos){
+  const c = document.getElementById("grafico");
+  const ctx = c.getContext("2d");
+  ctx.clearRect(0,0,c.width,c.height);
 
-  ctx.fillStyle = "red";
-  ctx.fillRect(120, 200 - gastos / 50, 40, gastos / 50);
+  ctx.strokeStyle = "#6a00ff";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
 
-  ctx.fillStyle = "white";
-  ctx.fillText("Receita", 50, 190);
-  ctx.fillText("Gastos", 120, 190);
+  for(let i=0;i<12;i++){
+    const y = 200 - (salario - gastos)/20 + i;
+    ctx.lineTo(20 + i*25, y);
+  }
+  ctx.stroke();
 }
