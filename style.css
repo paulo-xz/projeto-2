@@ -1,0 +1,46 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #f0f4ff, #ffffff);
+  color: #333;
+}
+
+header {
+  background: linear-gradient(90deg, #0a7cff, #00c6ff);
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+.motivacao {
+  max-width: 600px;
+  margin: auto;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  background: white;
+  padding: 15px;
+}
+
+nav button {
+  background: #0a7cff;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+section {
+  display: none;
+  max-width: 700px;
+  margin: auto;
+  padding: 30px;
+}
+
+section.ativa {
+  display: block;
+}
