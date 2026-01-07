@@ -8,88 +8,121 @@
 </head>
 <body>
 
-<!-- INTRO ANIMADA -->
+<!-- INTRO -->
 <div id="intro">
-  <div class="intro-dollar">$</div>
-  <div class="intro-title">MyMoney$</div>
+  <div id="intro-dollar">$</div>
+  <div id="intro-text">MyMoney$</div>
 </div>
 
 <!-- TRANSIÇÃO -->
 <div id="transition">
-  <div class="transition-dollar">$</div>
+  <div id="transition-dollar">$</div>
 </div>
 
 <header class="topo">
-  <h1>MyMoney$</h1>
+  <h1 id="bemvindo">MyMoney$</h1>
 </header>
+
+<!-- PERFIL LATERAL -->
+<aside id="perfilLateral">
+  <h3>Seu Perfil</h3>
+  <input id="nomeUsuario" placeholder="Nome">
+  <input id="idadeUsuario" type="number" placeholder="Idade">
+  <input id="paisUsuario" placeholder="País">
+  <input type="file">
+  <button onclick="salvarPerfil()">Salvar</button>
+
+  <h4>Configurações</h4>
+  <button onclick="tema('roxo')">Preto & Roxo</button>
+  <button onclick="tema('verde')">Verde & Preto</button>
+  <button onclick="tema('claro')">Verde & Branco</button>
+</aside>
 
 <!-- ABAS -->
 <section id="reflexao" class="ativa">
-  <div class="card roxo">
-    <h2>Você trabalha pelo dinheiro… ou o dinheiro trabalha contra você?</h2>
+  <div class="card">
+    <h2>Bem-vindo.</h2>
+    <p>
+      Quem não controla o dinheiro, trabalha a vida inteira para ele.
+      Aqui você aprende a fazer o dinheiro trabalhar para você.
+    </p>
   </div>
-  <div class="card roxo">
-    <h2>Quanto tempo da sua vida vale não ter controle financeiro?</h2>
+
+  <div class="card">
+    <p>
+      Cada mês sem planejamento é um mês mais longe da sua liberdade financeira.
+    </p>
   </div>
-  <div class="card roxo">
-    <h2>Se nada mudar, sua situação financeira melhora ou piora?</h2>
+
+  <div class="card">
+    <p>
+      Você não precisa ganhar mais.
+      Precisa usar melhor o que já ganha.
+    </p>
   </div>
 </section>
 
 <section id="perfil">
-  <div class="card roxo">
-    <h2>Seu perfil financeiro</h2>
+  <div class="card">
     <input id="salario" type="number" placeholder="Salário mensal">
     <input id="gastos" type="number" placeholder="Gastos mensais">
-    <input id="meta" type="number" placeholder="Quanto deseja juntar">
+    <input id="meta" type="number" placeholder="Objetivo final">
     <input id="meses" type="number" placeholder="Em quantos meses">
-    <button onclick="calcularPerfil()" class="btn-roxo">
-      Analisar meu perfil
-    </button>
+    <button onclick="calcularPerfil()">Calcular</button>
     <p id="resultadoPerfil"></p>
-    <button onclick="irParaPlano()" class="btn-roxo">
-      Estou pronto para calcular minha economia
-    </button>
+    <button onclick="irPlano()">Estou pronto</button>
   </div>
 </section>
 
 <section id="economia">
-  <div class="card roxo fundo-roxo">
-    <h2>Seu plano financeiro personalizado</h2>
+  <div class="card fundo">
+    <h2>Seu plano financeiro</h2>
     <p id="textoPlano"></p>
-    <div class="valor-destaque" id="valorMensal"></div>
+    <div id="valorMensal"></div>
   </div>
 </section>
 
 <section id="progresso">
-  <div class="card roxo">
-    <h2>Progresso financeiro</h2>
+  <div class="card">
     <canvas id="grafico" width="320" height="220"></canvas>
+
+    <div class="botoes-lado">
+      <button onclick="addGasto()">Adicionar gasto</button>
+      <button onclick="addRenda()">Adicionar renda</button>
+    </div>
   </div>
 </section>
 
 <section id="premium">
   <div class="card premium">
-    <h2>👑 MyMoney$PRO</h2>
+    <h2>MyMoney$PRO</h2>
 
-    <p>✔ Planejamento financeiro avançado</p>
-    <p>✔ Estratégias com milhas e cartões</p>
-    <p>✔ Promoções e consumo inteligente</p>
-    <p>✔ Crescimento financeiro pessoal e empresarial</p>
+    <div class="plano">
+      <h3>Básico — R$10,90</h3>
+      <p>✔ Organização financeira</p>
+      <p>✔ Dicas mensais</p>
+    </div>
 
-    <div class="card premium-box">
-      <p>
-        Com o MyMoney$PRO, você não apenas economiza.
-        Você constrói patrimônio, expande sua empresa
-        e transforma dinheiro em liberdade.
-      </p>
+    <div class="plano">
+      <h3>Avançado — R$19,90</h3>
+      <p>✔ Tudo do básico</p>
+      <p>✔ Milhas e cartões</p>
+      <p>✔ Promoções inteligentes</p>
+      <p>✔ Perfil empresarial</p>
+    </div>
+
+    <div class="plano vip">
+      <h3>VIP — ILIMITADO</h3>
+      <p>✔ Todas as vantagens</p>
+      <p>✔ Perfis empresariais ilimitados</p>
+      <p>✔ Crescimento pessoal e empresarial</p>
     </div>
   </div>
 </section>
 
 <!-- MENU -->
 <nav>
-  <button onclick="abrirAba('reflexao')">💡</button>
+  <button onclick="abrirAba('reflexao')">❓</button>
   <button onclick="abrirAba('perfil')">👤</button>
   <button onclick="abrirAba('progresso')">📈</button>
   <button onclick="abrirAba('premium')">👑</button>
