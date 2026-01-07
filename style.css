@@ -1,26 +1,44 @@
+:root {
+  --principal: purple;
+  --fundo: black;
+  --texto: white;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: black;
-  color: white;
-  overflow-x: hidden;
+  background: var(--fundo);
+  color: var(--texto);
 }
 
-/* FUNDO GLOBAL */
-body::after {
+/* FUNDO DECORATIVO */
+body::before {
   content: "$";
   position: fixed;
-  font-size: 300px;
+  font-size: 500px;
   color: rgba(128,0,255,0.08);
-  top: 20%;
-  left: 20%;
+  left: -150px;
+  top: 100px;
+  z-index: -1;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  width: 400px;
+  height: 200px;
+  border: 8px solid var(--principal);
+  border-radius: 50%;
+  transform: rotate(-30deg);
+  left: 50px;
+  top: 200px;
   z-index: -1;
 }
 
 .topo {
   text-align: center;
-  padding: 20px;
-  border-bottom: 2px solid purple;
+  padding: 15px;
+  border-bottom: 2px solid var(--principal);
 }
 
 section {
@@ -33,21 +51,18 @@ section.ativa {
 }
 
 .card {
-  max-width: 520px;
-  margin: 20px auto;
-  padding: 25px;
+  background: linear-gradient(135deg, var(--principal), #2d003d);
   border-radius: 20px;
+  padding: 25px;
+  margin: 15px auto;
+  max-width: 520px;
 }
 
-.roxo {
-  background: linear-gradient(135deg, #6a00ff, #2e0a5f);
-}
-
-.fundo-roxo {
+.fundo {
   min-height: 70vh;
 }
 
-input {
+input, button {
   width: 100%;
   padding: 12px;
   margin: 8px 0;
@@ -55,20 +70,9 @@ input {
   border: none;
 }
 
-.btn-roxo {
-  width: 100%;
-  padding: 14px;
-  border-radius: 30px;
-  border: 2px solid black;
-  background: purple;
+button {
+  background: var(--principal);
   color: white;
-  margin-top: 10px;
-}
-
-.valor-destaque {
-  font-size: 26px;
-  margin-top: 20px;
-  text-align: center;
 }
 
 nav {
@@ -80,21 +84,11 @@ nav {
 }
 
 nav button {
-  background: none;
-  border: none;
-  font-size: 22px;
-  color: purple;
-}
-
-.premium {
-  background: black;
-  border: 2px solid gold;
-}
-
-.premium-box {
-  margin-top: 15px;
-  border: 2px solid gold;
-  background: #111;
+  background: var(--principal);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
 }
 
 /* INTRO */
@@ -103,34 +97,30 @@ nav button {
   inset: 0;
   background: black;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   z-index: 9999;
-  animation: introOut 4s forwards;
 }
 
-.intro-dollar {
+#intro-dollar {
   font-size: 80px;
-  animation: cair 2s;
+  animation: mover 2s forwards;
 }
 
-.intro-title {
+#intro-text {
+  position: absolute;
   font-size: 40px;
-  animation: crescer 2s 2s forwards;
+  left: 50%;
+  opacity: 0;
+  animation: texto 2s forwards 1.5s;
 }
 
-@keyframes cair {
-  from { transform: translateY(-200px); }
-  to { transform: translateY(0); }
+@keyframes mover {
+  to { transform: translateX(120px); }
 }
 
-@keyframes crescer {
-  to { transform: scale(20); opacity: 0; }
-}
-
-@keyframes introOut {
-  to { opacity: 0; display: none; }
+@keyframes texto {
+  to { opacity: 1; }
 }
 
 /* TRANSIÇÃO */
@@ -139,17 +129,32 @@ nav button {
   inset: 0;
   background: black;
   display: none;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   z-index: 999;
 }
 
-.transition-dollar {
+#transition-dollar {
   font-size: 60px;
   color: purple;
-  animation: mover 0.8s forwards;
+  animation: girar 1s;
 }
 
-@keyframes mover {
-  to { transform: translateX(200px); }
+@keyframes girar {
+  from { transform: rotate(0); }
+  to { transform: rotate(720deg); }
+}
+
+.premium {
+  border: 2px solid gold;
+}
+
+.plano {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid gold;
+}
+
+.vip {
+  background: #111;
 }
