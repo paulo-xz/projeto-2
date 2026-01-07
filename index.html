@@ -8,45 +8,67 @@
 </head>
 <body>
 
-<header>
-  <h1>💰 Projeto Finanças</h1>
-  <p class="motivacao">
-    Organize seu dinheiro, crie disciplina e transforme hábitos em conquistas.
+</body>
+<header class="hero">
+  <h1>Controle financeiro inteligente</h1>
+  <p class="hero-texto">
+    Economizar não é deixar de viver.<br>
+    É usar seu dinheiro com estratégia para conquistar liberdade.
   </p>
+  <button class="cta" onclick="abrirAba('home')">
+    Começar agora
+  </button>
 </header>
 
 <nav>
-  <button onclick="abrirAba('home')">Início</button>
-  <button onclick="abrirAba('mensal')">Economia Mensal</button>
+  <button onclick="abrirAba('home')">Por que usar?</button>
+  <button onclick="abrirAba('pesquisa')">Simulação</button>
+  <button onclick="abrirAba('mensal')">Mensal</button>
   <button onclick="abrirAba('anual')">Meta Anual</button>
 </nav>
 
-<section id="home" class="ativa">
-  <h2>Bem-vindo</h2>
+<section id="home" class="ativa card">
+  <h2>Por que ter controle financeiro?</h2>
   <p>
-    Este site foi criado para ajudar você a atingir metas financeiras reais,
-    com planejamento simples e disciplina.
+    A falta de organização financeira gera ansiedade, dívidas e frustrações.
+    Ter clareza sobre seu dinheiro é o primeiro passo para mudar essa realidade.
+  </p>
+  <p>
+    Nosso site foi criado para ajudar você a economizar de forma realista,
+    respeitando seus limites e guiando você até suas metas com segurança.
   </p>
 </section>
 
-<section id="mensal">
-  <h2>Economia Mensal</h2>
-  <input type="number" id="renda" placeholder="Renda mensal">
-  <input type="number" id="gastos" placeholder="Gastos mensais">
-  <button onclick="calcularMensal()">Calcular</button>
+<section id="pesquisa" class="card">
+  <h2>Simulação rápida</h2>
+  <p>
+    Informe seus dados e veja o plano ideal para a sua realidade financeira.
+  </p>
+
+  <input type="number" id="renda" placeholder="Sua renda mensal">
+  <input type="number" id="gastos" placeholder="Seus gastos mensais">
+
+  <button onclick="calcularMensal()">Ver resultado</button>
   <p id="resultadoMensal"></p>
 </section>
 
-<section id="anual">
-  <h2>Meta Anual</h2>
+<section id="mensal" class="card">
+  <h2>Economia mensal consciente</h2>
+  <p>
+    Economizar um valor possível todo mês é mais eficiente
+    do que cortes radicais que não se sustentam.
+  </p>
+  <p id="resultadoMensal"></p>
+</section>
+
+<section id="anual" class="card">
+  <h2>Meta anual personalizada</h2>
   <input type="number" id="meta" placeholder="Quanto deseja economizar no ano">
-  <button onclick="calcularMeta()">Calcular</button>
+  <button onclick="calcularMeta()">Calcular plano</button>
   <p id="resultadoAnual"></p>
 </section>
 
 <script src="script.js"></script>
-
-</body>
 
 </html>
 <!-- deploy-forcado -->
