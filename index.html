@@ -2,32 +2,48 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Calculadora de Economia</title>
+  <title>Projeto Finanças</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>💰 Calculadora de Economia Mensal</h1>
-<p>TESTE VISUAL – SE VOCÊ VÊ ISSO, É A PÁGINA CERTA</p>
+<header>
+  <h1>💰 Projeto Finanças</h1>
+  <p class="motivacao">
+    Organize seu dinheiro, crie disciplina e transforme hábitos em conquistas.
+  </p>
+</header>
 
-  <label>
-    Renda mensal:<br>
-    <input type="number" id="renda" placeholder="Ex: 3000">
-  </label>
+<nav>
+  <button onclick="abrirAba('home')">Início</button>
+  <button onclick="abrirAba('mensal')">Economia Mensal</button>
+  <button onclick="abrirAba('anual')">Meta Anual</button>
+</nav>
 
-  <br><br>
+<section id="home" class="ativa">
+  <h2>Bem-vindo</h2>
+  <p>
+    Este site foi criado para ajudar você a atingir metas financeiras reais,
+    com planejamento simples e disciplina.
+  </p>
+</section>
 
-  <label>
-    Gastos mensais:<br>
-    <input type="number" id="gastos" placeholder="Ex: 2000">
-  </label>
+<section id="mensal">
+  <h2>Economia Mensal</h2>
+  <input type="number" id="renda" placeholder="Renda mensal">
+  <input type="number" id="gastos" placeholder="Gastos mensais">
+  <button onclick="calcularMensal()">Calcular</button>
+  <p id="resultadoMensal"></p>
+</section>
 
-  <br><br>
+<section id="anual">
+  <h2>Meta Anual</h2>
+  <input type="number" id="meta" placeholder="Quanto deseja economizar no ano">
+  <button onclick="calcularMeta()">Calcular</button>
+  <p id="resultadoAnual"></p>
+</section>
 
-  <button onclick="calcular()">Calcular</button>
-
-  <p id="resultado"></p>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
