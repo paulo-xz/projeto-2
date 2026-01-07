@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Meu App</title>
+  <meta charset="UTF-8">
+  <title>Calculadora de Economia</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>🚀 Meu App na Vercel</h1>
+  <h1>💰 Calculadora de Economia Mensal</h1>
 
-  <button onclick="executar()">Testar JavaScript</button>
+  <label>
+    Renda mensal:<br>
+    <input type="number" id="renda" placeholder="Ex: 3000">
+  </label>
+
+  <br><br>
+
+  <label>
+    Gastos mensais:<br>
+    <input type="number" id="gastos" placeholder="Ex: 2000">
+  </label>
+
+  <br><br>
+
+  <button onclick="calcular()">Calcular</button>
 
   <p id="resultado"></p>
 
