@@ -1,30 +1,32 @@
 body {
   margin: 0;
+  background: black;
+  color: white;
   font-family: Arial, sans-serif;
-  background: #000;
-  color: #fff;
 }
 
-.topo {
-  text-align: center;
-  padding: 30px;
-}
-
-nav {
+.top-line {
   display: flex;
-  justify-content: center;
+  align-items: center;
   gap: 10px;
   padding: 10px;
+  border-bottom: 1px solid #6a00ff;
 }
 
-nav button {
-  background: #6a00ff;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 20px;
-  cursor: pointer;
+.logo {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
 }
+
+.logo .bar {
+  width: 6px;
+  background: #6a00ff;
+}
+
+.logo .bar:nth-child(1){height:10px}
+.logo .bar:nth-child(2){height:18px}
+.logo .bar:nth-child(3){height:25px}
 
 section {
   display: none;
@@ -36,36 +38,47 @@ section.ativa {
 }
 
 .card {
-  margin: 20px auto;
-  max-width: 500px;
+  background: linear-gradient(135deg, #3a0ca3, #7209b7);
   padding: 20px;
   border-radius: 20px;
-}
-
-.roxo {
-  background: #5e17eb;
-}
-
-.premium {
-  background: #111;
-  border: 2px solid gold;
+  margin: 20px auto;
+  max-width: 500px;
 }
 
 input {
   width: 100%;
   padding: 10px;
-  margin: 8px 0;
   border-radius: 10px;
+  margin: 8px 0;
   border: none;
 }
 
-.checkbox {
-  display: block;
-  margin-top: 10px;
+button {
+  background: #6a00ff;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
-button {
-  margin-top: 10px;
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: black;
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #6a00ff;
+}
+
+.bottom-nav button {
+  font-size: 22px;
+}
+
+.premium {
+  background: black;
+  border: 2px solid gold;
 }
 
 .btn-premium {
@@ -73,6 +86,25 @@ button {
   color: black;
   font-weight: bold;
   width: 100%;
-  padding: 12px;
-  border-radius: 20px;
+}
+
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.money {
+  font-size: 80px;
+  color: #6a00ff;
+  animation: bounce 0.6s infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-20px); }
 }
