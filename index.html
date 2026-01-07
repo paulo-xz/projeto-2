@@ -7,129 +7,84 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="hero">
-  <h1>Controle financeiro inteligente</h1>
-  <p class="hero-texto">
-    Economizar não é deixar de viver.<br>
-    É usar seu dinheiro com estratégia para conquistar liberdade.
-  </p>
-  <button class="cta" onclick="abrirAba('home')">
-    Começar agora
-  </button>
+
+<header class="topo">
+  <h1>💰 Projeto Finanças</h1>
+  <p>Planeje hoje. Conquiste amanhã.</p>
 </header>
 
 <nav>
-  <button onclick="abrirAba('home')">Por que usar?</button>
-  <button onclick="abrirAba('pesquisa')">Simulação</button>
-  <button onclick="abrirAba('mensal')">Mensal</button>
-  <button onclick="abrirAba('anual')">Meta Anual</button>
+  <button onclick="abrirAba('reflexao')">Reflexão</button>
+  <button onclick="abrirAba('perfil')">Perfil & Meta</button>
+  <button onclick="abrirAba('grafico')">Progresso</button>
+  <button onclick="abrirAba('premium')">Premium</button>
 </nav>
 
-<section id="home" class="ativa card">
-  <h2>Por que ter controle financeiro?</h2>
-  <p>
-    A falta de organização financeira gera ansiedade, dívidas e frustrações.
-    Ter clareza sobre seu dinheiro é o primeiro passo para mudar essa realidade.
-  </p>
-  <p>
-    Nosso site foi criado para ajudar você a economizar de forma realista,
-    respeitando seus limites e guiando você até suas metas com segurança.
-  </p>
+<!-- ABA 1 -->
+<section id="reflexao" class="ativa">
+  <div class="card roxo">
+    <h2>Você controla seu dinheiro ou ele controla você?</h2>
+  </div>
+  <div class="card roxo">
+    <h2>Você sabe quanto realmente sobra no fim do mês?</h2>
+  </div>
+  <div class="card roxo">
+    <h2>Se continuar assim, onde estará financeiramente em 1 ano?</h2>
+  </div>
 </section>
 
-<section id="pesquisa" class="card">
-  <h2>Simulação rápida</h2>
-  <p>
-    Informe seus dados e veja o plano ideal para a sua realidade financeira.
-  </p>
+<!-- ABA 2 -->
+<section id="perfil">
+  <div class="card roxo">
+    <h2>Seu perfil financeiro</h2>
 
-  <input type="number" id="renda" placeholder="Sua renda mensal">
-  <input type="number" id="gastos" placeholder="Seus gastos mensais">
+    <input id="nome" placeholder="Seu nome">
+    <input id="regiao" placeholder="País ou região (ex: Brasil)">
+    <input type="number" id="salario" placeholder="Salário mensal">
+    <input type="number" id="gastos" placeholder="Média de gastos mensais">
 
-  <button onclick="calcularMensal()">Ver resultado</button>
-  <p id="resultadoMensal"></p>
+    <label class="checkbox">
+      <input type="checkbox" id="investe"> Já invisto ou economizo
+    </label>
+  </div>
+
+  <div class="card roxo">
+    <h2>Sua meta</h2>
+    <input type="number" id="meta" placeholder="Quanto quer juntar">
+    <input type="number" id="tempo" placeholder="Em quantos meses">
+    <button onclick="calcularMeta()">Calcular plano</button>
+    <p id="resultadoMeta"></p>
+  </div>
 </section>
 
-<section id="mensal" class="card">
-  <h2>Economia mensal consciente</h2>
-  <p>
-    Economizar um valor possível todo mês é mais eficiente
-    do que cortes radicais que não se sustentam.
-  </p>
-  <p id="resultadoMensal"></p>
+<!-- ABA 3 -->
+<section id="grafico">
+  <div class="card roxo">
+    <h2>Progresso em 12 meses</h2>
+    <canvas id="graficoCanvas" width="300" height="200"></canvas>
+  </div>
 </section>
 
-<section id="anual" class="card">
-  <h2>Meta anual personalizada</h2>
-  <input type="number" id="meta" placeholder="Quanto deseja economizar no ano">
-  <button onclick="calcularMeta()">Calcular plano</button>
-  <p id="resultadoAnual"></p>
+<!-- ABA 4 -->
+<section id="premium">
+  <div class="card premium">
+    <h2>👑 Plano Premium</h2>
+    <p>
+      Desbloqueie dicas avançadas de economia, investimentos,
+      milhas aéreas, cartões de crédito inteligentes e estratégias
+      reais para alcançar sua meta mais rápido.
+    </p>
+    <ul>
+      <li>✔ Estratégias financeiras personalizadas</li>
+      <li>✔ Dicas de investimento iniciante</li>
+      <li>✔ Milhas, cashback e crédito inteligente</li>
+      <li>✔ Planejamento de longo prazo</li>
+    </ul>
+    <button class="btn-premium">Quero ser Premium</button>
+  </div>
 </section>
 
 <script src="script.js"></script>
-
 </body>
-<header class="hero">
-  <h1>Controle financeiro inteligente</h1>
-  <p class="hero-texto">
-    Economizar não é deixar de viver.<br>
-    É usar seu dinheiro com estratégia para conquistar liberdade.
-  </p>
-  <button class="cta" onclick="abrirAba('home')">
-    Começar agora
-  </button>
-</header>
-
-<nav>
-  <button onclick="abrirAba('home')">Por que usar?</button>
-  <button onclick="abrirAba('pesquisa')">Simulação</button>
-  <button onclick="abrirAba('mensal')">Mensal</button>
-  <button onclick="abrirAba('anual')">Meta Anual</button>
-</nav>
-
-<section id="home" class="ativa card">
-  <h2>Por que ter controle financeiro?</h2>
-  <p>
-    A falta de organização financeira gera ansiedade, dívidas e frustrações.
-    Ter clareza sobre seu dinheiro é o primeiro passo para mudar essa realidade.
-  </p>
-  <p>
-    Nosso site foi criado para ajudar você a economizar de forma realista,
-    respeitando seus limites e guiando você até suas metas com segurança.
-  </p>
-</section>
-
-<section id="pesquisa" class="card">
-  <h2>Simulação rápida</h2>
-  <p>
-    Informe seus dados e veja o plano ideal para a sua realidade financeira.
-  </p>
-
-  <input type="number" id="renda" placeholder="Sua renda mensal">
-  <input type="number" id="gastos" placeholder="Seus gastos mensais">
-
-  <button onclick="calcularMensal()">Ver resultado</button>
-  <p id="resultadoMensal"></p>
-</section>
-
-<section id="mensal" class="card">
-  <h2>Economia mensal consciente</h2>
-  <p>
-    Economizar um valor possível todo mês é mais eficiente
-    do que cortes radicais que não se sustentam.
-  </p>
-  <p id="resultadoMensal"></p>
-</section>
-
-<section id="anual" class="card">
-  <h2>Meta anual personalizada</h2>
-  <input type="number" id="meta" placeholder="Quanto deseja economizar no ano">
-  <button onclick="calcularMeta()">Calcular plano</button>
-  <p id="resultadoAnual"></p>
-</section>
-
-<script src="script.js"></script>
-
 </html>
-<!-- deploy-forcado -->
 
