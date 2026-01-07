@@ -1,36 +1,31 @@
 body {
   margin: 0;
+  font-family: Arial, sans-serif;
   background: black;
   color: white;
-  font-family: Arial, sans-serif;
+  overflow-x: hidden;
 }
 
-.top-line {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  border-bottom: 1px solid #6a00ff;
+/* FUNDO GLOBAL */
+body::after {
+  content: "$";
+  position: fixed;
+  font-size: 300px;
+  color: rgba(128,0,255,0.08);
+  top: 20%;
+  left: 20%;
+  z-index: -1;
 }
 
-.logo {
-  display: flex;
-  gap: 3px;
-  align-items: flex-end;
+.topo {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 2px solid purple;
 }
-
-.logo .bar {
-  width: 6px;
-  background: #6a00ff;
-}
-
-.logo .bar:nth-child(1){height:10px}
-.logo .bar:nth-child(2){height:18px}
-.logo .bar:nth-child(3){height:25px}
 
 section {
   display: none;
-  padding: 20px;
+  padding: 80px 20px 120px;
 }
 
 section.ativa {
@@ -38,42 +33,57 @@ section.ativa {
 }
 
 .card {
-  background: linear-gradient(135deg, #3a0ca3, #7209b7);
-  padding: 20px;
-  border-radius: 20px;
+  max-width: 520px;
   margin: 20px auto;
-  max-width: 500px;
+  padding: 25px;
+  border-radius: 20px;
+}
+
+.roxo {
+  background: linear-gradient(135deg, #6a00ff, #2e0a5f);
+}
+
+.fundo-roxo {
+  min-height: 70vh;
 }
 
 input {
   width: 100%;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px;
   margin: 8px 0;
+  border-radius: 12px;
   border: none;
 }
 
-button {
-  background: #6a00ff;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
+.btn-roxo {
   width: 100%;
-  background: black;
+  padding: 14px;
+  border-radius: 30px;
+  border: 2px solid black;
+  background: purple;
+  color: white;
+  margin-top: 10px;
+}
+
+.valor-destaque {
+  font-size: 26px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+nav {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
   display: flex;
   justify-content: space-around;
-  border-top: 1px solid #6a00ff;
 }
 
-.bottom-nav button {
+nav button {
+  background: none;
+  border: none;
   font-size: 22px;
+  color: purple;
 }
 
 .premium {
@@ -81,30 +91,65 @@ button {
   border: 2px solid gold;
 }
 
-.btn-premium {
-  background: gold;
-  color: black;
-  font-weight: bold;
-  width: 100%;
+.premium-box {
+  margin-top: 15px;
+  border: 2px solid gold;
+  background: #111;
 }
 
-#overlay {
+/* INTRO */
+#intro {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: introOut 4s forwards;
+}
+
+.intro-dollar {
+  font-size: 80px;
+  animation: cair 2s;
+}
+
+.intro-title {
+  font-size: 40px;
+  animation: crescer 2s 2s forwards;
+}
+
+@keyframes cair {
+  from { transform: translateY(-200px); }
+  to { transform: translateY(0); }
+}
+
+@keyframes crescer {
+  to { transform: scale(20); opacity: 0; }
+}
+
+@keyframes introOut {
+  to { opacity: 0; display: none; }
+}
+
+/* TRANSIÇÃO */
+#transition {
   position: fixed;
   inset: 0;
   background: black;
   display: none;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   z-index: 999;
 }
 
-.money {
-  font-size: 80px;
-  color: #6a00ff;
-  animation: bounce 0.6s infinite alternate;
+.transition-dollar {
+  font-size: 60px;
+  color: purple;
+  animation: mover 0.8s forwards;
 }
 
-@keyframes bounce {
-  from { transform: translateY(0); }
-  to { transform: translateY(-20px); }
+@keyframes mover {
+  to { transform: translateX(200px); }
 }
