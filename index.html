@@ -2,89 +2,111 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Projeto Finanças</title>
+  <title>MyMoney$</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="topo">
-  <h1>💰 Projeto Finanças</h1>
-  <p>Planeje hoje. Conquiste amanhã.</p>
-</header>
+<!-- Linha superior -->
+<div class="top-line">
+  <div class="logo">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <span>➜</span>
+  </div>
+  <h1>MyMoney$</h1>
+</div>
 
-<nav>
-  <button onclick="abrirAba('reflexao')">Reflexão</button>
-  <button onclick="abrirAba('perfil')">Perfil & Meta</button>
-  <button onclick="abrirAba('grafico')">Progresso</button>
-  <button onclick="abrirAba('premium')">Premium</button>
-</nav>
+<!-- TRANSIÇÃO -->
+<div id="overlay">
+  <div class="money">$</div>
+</div>
 
-<!-- ABA 1 -->
+<!-- ABAS -->
 <section id="reflexao" class="ativa">
   <div class="card roxo">
-    <h2>Você controla seu dinheiro ou ele controla você?</h2>
+    <h2>
+      Você trabalha o mês inteiro…  
+      mas no final ele some.  
+      Já parou para pensar **para onde sua vida financeira está indo?**
+    </h2>
   </div>
+
   <div class="card roxo">
-    <h2>Você sabe quanto realmente sobra no fim do mês?</h2>
+    <h2>
+      Se hoje tudo parasse,  
+      **por quanto tempo seu dinheiro te sustentaria?**
+    </h2>
   </div>
+
   <div class="card roxo">
-    <h2>Se continuar assim, onde estará financeiramente em 1 ano?</h2>
+    <h2>
+      Quem não planeja o próprio dinheiro  
+      acaba financiando os sonhos dos outros.
+    </h2>
   </div>
 </section>
 
-<!-- ABA 2 -->
 <section id="perfil">
   <div class="card roxo">
     <h2>Seu perfil financeiro</h2>
 
     <input id="nome" placeholder="Seu nome">
-    <input id="regiao" placeholder="País ou região (ex: Brasil)">
-    <input type="number" id="salario" placeholder="Salário mensal">
-    <input type="number" id="gastos" placeholder="Média de gastos mensais">
+    <input id="regiao" placeholder="País ou região">
 
-    <label class="checkbox">
-      <input type="checkbox" id="investe"> Já invisto ou economizo
+    <input id="salario" placeholder="Salário mensal">
+    <input id="gastos" placeholder="Gastos mensais">
+
+    <label>
+      <input type="checkbox" id="investe">
+      Já economizo ou invisto
     </label>
   </div>
 
   <div class="card roxo">
     <h2>Sua meta</h2>
-    <input type="number" id="meta" placeholder="Quanto quer juntar">
-    <input type="number" id="tempo" placeholder="Em quantos meses">
-    <button onclick="calcularMeta()">Calcular plano</button>
-    <p id="resultadoMeta"></p>
+    <input id="meta" placeholder="Quanto deseja juntar">
+    <input id="tempo" placeholder="Em quantos meses">
+    <button onclick="calcularPlano()">Calcular</button>
+    <p id="resultado"></p>
   </div>
 </section>
 
-<!-- ABA 3 -->
-<section id="grafico">
+<section id="progresso">
   <div class="card roxo">
-    <h2>Progresso em 12 meses</h2>
-    <canvas id="graficoCanvas" width="300" height="200"></canvas>
+    <h2>Progresso financeiro</h2>
+    <canvas id="grafico" width="350" height="250"></canvas>
   </div>
 </section>
 
-<!-- ABA 4 -->
 <section id="premium">
   <div class="card premium">
-    <h2>👑 Plano Premium</h2>
-    <p>
-      Desbloqueie dicas avançadas de economia, investimentos,
-      milhas aéreas, cartões de crédito inteligentes e estratégias
-      reais para alcançar sua meta mais rápido.
-    </p>
+    <h2>👑 MyMoney$PRO</h2>
+
+    <p>Transforme disciplina em resultado real.</p>
+
     <ul>
-      <li>✔ Estratégias financeiras personalizadas</li>
-      <li>✔ Dicas de investimento iniciante</li>
-      <li>✔ Milhas, cashback e crédito inteligente</li>
-      <li>✔ Planejamento de longo prazo</li>
+      <li>✔ Estratégias avançadas de economia</li>
+      <li>✔ Investimentos acessíveis e reais</li>
+      <li>✔ Milhas, créditos e cashback</li>
+      <li>✔ Promoções em parceiros de consumo</li>
+      <li>✔ Acelere sua meta com inteligência</li>
     </ul>
-    <button class="btn-premium">Quero ser Premium</button>
+
+    <button class="btn-premium">Quero ser PRO</button>
   </div>
 </section>
+
+<!-- MENU INFERIOR -->
+<nav class="bottom-nav">
+  <button onclick="trocarAba('reflexao')">💭</button>
+  <button onclick="trocarAba('perfil')">👤</button>
+  <button onclick="trocarAba('progresso')">📈</button>
+  <button onclick="trocarAba('premium')">👑</button>
+</nav>
 
 <script src="script.js"></script>
 </body>
 </html>
-
