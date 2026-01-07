@@ -10,42 +10,68 @@ function abrirAba(id) {
 }
 
 function calcularPerfil() {
-  const salario = Number(document.getElementById("salario").value);
-  const gastos = Number(document.getElementById("gastos").value);
-  const meta = Number(document.getElementById("meta").value);
-  const meses = Number(document.getElementById("meses").value);
+  const salario = Number(salario.value);
+  const gastos = Number(gastos.value);
+  const meta = Number(meta.value);
+  const meses = Number(meses.value);
 
   dados = { salario, gastos, meta, meses };
 
   const sobra = salario - gastos;
   const porMes = meta / meses;
 
-  document.getElementById("resultadoPerfil").innerText =
-    `Você precisará guardar $${porMes.toFixed(2)} por mês.`;
+  resultadoPerfil.innerText =
+    `Você precisa guardar $${porMes.toFixed(2)} por mês.`;
 
   if (porMes > sobra) {
     abrirAba("premium");
   }
 }
 
-function irParaPlano() {
-  const { meta, meses } = dados;
-  const valor = (meta / meses).toFixed(2);
+function irPlano() {
+  const valor = (dados.meta / dados.meses).toFixed(2);
 
-  document.getElementById("textoPlano").innerText =
-    "A chave para juntar dinheiro é constância, pequenas decisões corretas e um plano que respeita sua realidade.";
+  textoPlano.innerText =
+    "Pequenos hábitos, constância e planejamento tornam qualquer meta possível.";
 
-  document.getElementById("valorMensal").innerText =
-    `$${valor} por mês durante ${meses} meses`;
+  valorMensal.innerText =
+    `$${valor} por mês durante ${dados.meses} meses`;
 
   abrirAba("economia");
 }
 
-function transicao(callback) {
-  const t = document.getElementById("transition");
-  t.style.display = "flex";
+function transicao(cb) {
+  transition.style.display = "flex";
   setTimeout(() => {
-    t.style.display = "none";
-    callback();
-  }, 800);
+    transition.style.display = "none";
+    cb();
+  }, 1000);
 }
+
+function tema(tipo) {
+  if (tipo === "verde") {
+    document.documentElement.style.setProperty("--principal", "green");
+  } else if (tipo === "claro") {
+    document.documentElement.style.setProperty("--principal", "green");
+    document.documentElement.style.setProperty("--fundo", "white");
+    document.documentElement.style.setProperty("--texto", "black");
+  } else {
+    document.documentElement.style.setProperty("--principal", "purple");
+    document.documentElement.style.setProperty("--fundo", "black");
+    document.documentElement.style.setProperty("--texto", "white");
+  }
+}
+
+function salvarPerfil() {
+  const nome = nomeUsuario.value;
+  bemvindo.innerText = `Bem-vindo, Sr(a). ${nome}`;
+}
+
+function addGasto() {
+  alert("Gasto adicionado (simulado)");
+}
+
+function addRenda() {
+  alert("Renda adicionada (simulada)");
+}
+
