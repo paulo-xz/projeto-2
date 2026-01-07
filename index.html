@@ -1,111 +1,311 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>MyMoney$</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>MyMoney$</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --roxo: #8b00ff;
+  --fundo: #000;
+  --texto: #fff;
+}
+
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: black;
+  color: white;
+  overflow-x:hidden;
+}
+
+/* FUNDO DECORATIVO */
+body::before{
+  content:"$";
+  position:fixed;
+  font-size:520px;
+  left:-180px;
+  top:120px;
+  color:rgba(150,0,255,0.08);
+  z-index:-1;
+}
+body::after{
+  content:"";
+  position:fixed;
+  left:120px;
+  top:200px;
+  width:300px;
+  height:300px;
+  border:8px solid var(--roxo);
+  border-radius:50%;
+  transform:rotate(-35deg);
+  z-index:-1;
+}
+
+/* INTRO */
+#intro{
+  position:fixed;
+  inset:0;
+  background:black;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  animation:introOut 0.6s forwards 2s;
+}
+
+#intro h1{
+  font-size:58px;
+  background:linear-gradient(90deg, #000, var(--roxo));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:surgir 1.5s;
+}
+
+#intro p{
+  margin-top:12px;
+  font-size:14px;
+  color:#aaa;
+  letter-spacing:2px;
+}
+
+@keyframes surgir{
+  from{opacity:0; filter:blur(10px);}
+  to{opacity:1; filter:blur(0);}
+}
+
+@keyframes introOut{
+  to{
+    opacity:0;
+    pointer-events:none;
+  }
+}
+
+/* TOPO */
+header{
+  text-align:center;
+  padding:15px;
+  border-bottom:2px solid var(--roxo);
+}
+
+/* SEÇÕES */
+section{
+  display:none;
+  padding:80px 20px 120px;
+}
+section.ativa{display:block;}
+
+.card{
+  max-width:520px;
+  margin:15px auto;
+  background:linear-gradient(135deg, var(--roxo), #2a003a);
+  border-radius:20px;
+  padding:25px;
+}
+
+input, button{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border:none;
+  border-radius:12px;
+}
+button{
+  background:var(--roxo);
+  color:white;
+  cursor:pointer;
+}
+
+/* NAV */
+nav{
+  position:fixed;
+  bottom:10px;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+}
+nav button{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  font-size:18px;
+}
+
+/* PREMIUM */
+.premium{
+  border:2px solid gold;
+}
+.plano{
+  border:1px solid gold;
+  padding:10px;
+  margin-top:10px;
+}
+.vip{
+  background:#111;
+}
+
+/* TRANSIÇÃO */
+#transicao{
+  position:fixed;
+  inset:0;
+  background:black;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9998;
+}
+#transicao span{
+  font-size:60px;
+  color:var(--roxo);
+  animation:giro 1.2s;
+}
+@keyframes giro{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(720deg);}
+}
+</style>
 </head>
+
 <body>
 
-<!-- ENTRADA -->
+<!-- INTRO -->
 <div id="intro">
-  <h1 class="intro-title">MyMoney$</h1>
+  <h1>MyMoney$</h1>
+  <p>Aguardando...</p>
 </div>
 
-<header class="topo">
-  <h1 id="bemvindo">MyMoney$</h1>
+<div id="transicao"><span>$</span></div>
+
+<header>
+  <h1>MyMoney$</h1>
 </header>
 
+<!-- ABA 1 -->
 <section id="reflexao" class="ativa">
   <div class="card">
     <h2>Bem-vindo.</h2>
-    <p>
-      O dinheiro não some. Ele apenas vai para quem sabe controlá-lo.
-    </p>
+    <p>O dinheiro não some. Ele apenas muda de mãos.</p>
   </div>
-
   <div class="card">
-    <p>
-      Cada decisão financeira de hoje constrói ou destrói seu amanhã.
-    </p>
+    <p>Se você não decide para onde o dinheiro vai, ele decide por você.</p>
   </div>
-
   <div class="card">
-    <p>
-      Não é sobre ganhar mais.  
-      É sobre usar melhor o que você já ganha.
-    </p>
+    <p>Economizar é assumir o controle da própria história.</p>
   </div>
 </section>
 
+<!-- ABA 2 -->
 <section id="perfil">
   <div class="card">
+    <input id="nome" placeholder="Seu nome">
     <input id="salario" type="number" placeholder="Salário mensal">
     <input id="gastos" type="number" placeholder="Gastos mensais">
-    <input id="meta" type="number" placeholder="Objetivo final">
+    <input id="meta" type="number" placeholder="Quanto quer juntar">
     <input id="meses" type="number" placeholder="Em quantos meses">
 
-    <button onclick="calcularPerfil()">Calcular</button>
-    <p id="resultadoPerfil"></p>
+    <button onclick="calcularPerfil()">Calcular economia</button>
+    <p id="resultado"></p>
 
-    <button onclick="irPlano()">Estou pronto para economizar</button>
+    <button onclick="mostrarPlano()">Estou pronto</button>
   </div>
 </section>
 
-<section id="economia">
-  <div class="card fundo">
+<!-- ABA OCULTA -->
+<section id="plano">
+  <div class="card">
     <h2>Seu plano financeiro</h2>
     <p id="textoPlano"></p>
-    <div id="valorMensal"></div>
+    <h3 id="valorMensal"></h3>
   </div>
 </section>
 
+<!-- ABA 3 -->
 <section id="progresso">
   <div class="card">
     <canvas id="grafico" width="320" height="220"></canvas>
-
-    <div class="botoes-lado">
-      <button onclick="addGasto()">Adicionar gasto</button>
-      <button onclick="addRenda()">Adicionar renda</button>
-    </div>
+    <button onclick="addGasto()">Adicionar gasto</button>
+    <button onclick="addRenda()">Adicionar renda</button>
   </div>
 </section>
 
+<!-- ABA 4 -->
 <section id="premium">
   <div class="card premium">
-    <h2>MyMoney$PRO</h2>
+    <h2>MyMoney$PRO 👑</h2>
 
     <div class="plano">
-      <h3>Básico — R$10,90</h3>
-      <p>✔ Organização financeira</p>
-      <p>✔ Dicas mensais</p>
+      <h3>Básico — $10,90</h3>
+      ✔ Organização financeira<br>
+      ✔ Dicas mensais
     </div>
 
     <div class="plano">
-      <h3>Avançado — R$19,90</h3>
-      <p>✔ Tudo do básico</p>
-      <p>✔ Milhas e cartões</p>
-      <p>✔ Promoções inteligentes</p>
-      <p>✔ Perfil empresarial</p>
+      <h3>Avançado — $19,90</h3>
+      ✔ Milhas<br>
+      ✔ Cartões<br>
+      ✔ Promoções
     </div>
 
     <div class="plano vip">
       <h3>VIP — ILIMITADO</h3>
-      <p>✔ Todas as vantagens</p>
-      <p>✔ Perfis ilimitados</p>
-      <p>✔ Crescimento financeiro pessoal e empresarial</p>
+      ✔ Perfis empresariais<br>
+      ✔ Crescimento financeiro completo
     </div>
   </div>
 </section>
 
 <nav>
-  <button onclick="abrirAba('reflexao')">❓</button>
-  <button onclick="abrirAba('perfil')">👤</button>
-  <button onclick="abrirAba('progresso')">📈</button>
-  <button onclick="abrirAba('premium')">👑</button>
+  <button onclick="trocarAba('reflexao')">❓</button>
+  <button onclick="trocarAba('perfil')">👤</button>
+  <button onclick="trocarAba('progresso')">📈</button>
+  <button onclick="trocarAba('premium')">👑</button>
 </nav>
 
-<script src="script.js"></script>
+<script>
+let dados={};
+
+function transicao(){
+  const t=document.getElementById("transicao");
+  t.style.display="flex";
+  setTimeout(()=>t.style.display="none",1200);
+}
+
+function trocarAba(id){
+  transicao();
+  setTimeout(()=>{
+    document.querySelectorAll("section").forEach(s=>s.classList.remove("ativa"));
+    document.getElementById(id).classList.add("ativa");
+  },600);
+}
+
+function calcularPerfil(){
+  const s=+salario.value;
+  const g=+gastos.value;
+  const m=+meta.value;
+  const mesesQtd=+meses.value;
+  const sobra=s-g;
+  const porMes=m/mesesQtd;
+
+  dados={s,g,m,mesesQtd,porMes};
+
+  resultado.innerText=`Você precisa guardar $${porMes.toFixed(2)} por mês`;
+
+  if(porMes>sobra){
+    trocarAba("premium");
+  }
+}
+
+function mostrarPlano(){
+  textoPlano.innerText="Disciplina constrói riqueza. Constância muda destinos.";
+  valorMensal.innerText=`$${dados.porMes.toFixed(2)} por mês`;
+  trocarAba("plano");
+}
+
+function addGasto(){alert("Gasto registrado");}
+function addRenda(){alert("Renda registrada");}
+</script>
+
 </body>
 </html>
