@@ -1,69 +1,78 @@
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  background: #f4f6f8;
-  color: #333;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
 }
 
-header {
-  background: linear-gradient(135deg, #2e7d32, #66bb6a);
-  color: white;
-  padding: 30px 20px;
+.topo {
   text-align: center;
-}
-
-.motivacao {
-  font-size: 1.1em;
-  margin-top: 10px;
+  padding: 30px;
 }
 
 nav {
   display: flex;
   justify-content: center;
   gap: 10px;
-  background: #1b5e20;
   padding: 10px;
 }
 
 nav button {
-  background: white;
+  background: #6a00ff;
+  color: #fff;
   border: none;
   padding: 10px 15px;
+  border-radius: 20px;
   cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
-}
-
-nav button:hover {
-  background: #c8e6c9;
 }
 
 section {
   display: none;
   padding: 20px;
-  max-width: 600px;
-  margin: auto;
 }
 
 section.ativa {
   display: block;
 }
 
+.card {
+  margin: 20px auto;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.roxo {
+  background: #5e17eb;
+}
+
+.premium {
+  background: #111;
+  border: 2px solid gold;
+}
+
 input {
   width: 100%;
   padding: 10px;
-  margin: 10px 0;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: none;
+}
+
+.checkbox {
+  display: block;
+  margin-top: 10px;
 }
 
 button {
-  background: #2e7d32;
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 5px;
+  margin-top: 10px;
 }
 
-button:hover {
-  background: #1b5e20;
+.btn-premium {
+  background: gold;
+  color: black;
+  font-weight: bold;
+  width: 100%;
+  padding: 12px;
+  border-radius: 20px;
 }
