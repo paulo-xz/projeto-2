@@ -7,39 +7,38 @@
 
 <style>
 :root{
-  --roxo: #8b00ff;
-  --fundo: #000;
-  --texto: #fff;
+  --primaria:#8b00ff;
+  --fundo:#000;
+  --texto:#fff;
+  --verde:#00ff88;
+  --vermelho:#ff4444;
 }
 
 body{
   margin:0;
-  font-family: Arial, sans-serif;
-  background: black;
-  color: white;
+  font-family:Arial, sans-serif;
+  background:var(--fundo);
+  color:var(--texto);
   overflow-x:hidden;
 }
 
-/* FUNDO DECORATIVO */
+/* FUNDOS DECORATIVOS */
 body::before{
   content:"$";
   position:fixed;
-  font-size:520px;
+  font-size:500px;
   left:-180px;
   top:120px;
   color:rgba(150,0,255,0.08);
   z-index:-1;
 }
 body::after{
-  content:"";
+  content:"$";
   position:fixed;
-  left:120px;
-  top:200px;
-  width:300px;
-  height:300px;
-  border:8px solid var(--roxo);
-  border-radius:50%;
-  transform:rotate(-35deg);
+  font-size:420px;
+  right:-140px;
+  bottom:-80px;
+  color:rgba(150,0,255,0.05);
   z-index:-1;
 }
 
@@ -53,67 +52,67 @@ body::after{
   align-items:center;
   justify-content:center;
   z-index:9999;
-  animation:introOut 0.6s forwards 2s;
 }
-
 #intro h1{
-  font-size:58px;
-  background:linear-gradient(90deg, #000, var(--roxo));
+  font-size:56px;
+  background:linear-gradient(90deg,#000,var(--primaria));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  animation:surgir 1.5s;
+}
+#intro p{color:#aaa;margin-top:10px;}
+.hide{display:none}
+
+/* TRANSIÇÃO */
+#transicao{
+  position:fixed;
+  inset:0;
+  background:black;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9998;
+}
+#transicao span{
+  font-size:70px;
+  color:var(--primaria);
+  animation:saltar 1.5s;
+}
+@keyframes saltar{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-80px)}
+  100%{transform:translateY(0)}
 }
 
-#intro p{
-  margin-top:12px;
-  font-size:14px;
-  color:#aaa;
-  letter-spacing:2px;
-}
-
-@keyframes surgir{
-  from{opacity:0; filter:blur(10px);}
-  to{opacity:1; filter:blur(0);}
-}
-
-@keyframes introOut{
-  to{
-    opacity:0;
-    pointer-events:none;
-  }
-}
-
-/* TOPO */
+/* HEADER */
 header{
   text-align:center;
   padding:15px;
-  border-bottom:2px solid var(--roxo);
+  border-bottom:2px solid var(--primaria);
 }
 
 /* SEÇÕES */
-section{
-  display:none;
-  padding:80px 20px 120px;
-}
-section.ativa{display:block;}
+section{display:none;padding:80px 20px 130px}
+section.ativa{display:block}
 
+/* CARDS */
 .card{
   max-width:520px;
   margin:15px auto;
-  background:linear-gradient(135deg, var(--roxo), #2a003a);
+  background:linear-gradient(135deg,var(--primaria),#2a003a);
   border-radius:20px;
   padding:25px;
 }
 
-input, button{
+/* INPUTS */
+input,button{
   width:100%;
   padding:12px;
-  margin:8px 0;
+  margin:6px 0;
   border:none;
   border-radius:12px;
 }
 button{
-  background:var(--roxo);
+  background:var(--primaria);
   color:white;
   cursor:pointer;
 }
@@ -127,50 +126,66 @@ nav{
   justify-content:space-around;
 }
 nav button{
-  width:50px;
-  height:50px;
+  width:48px;
+  height:48px;
   border-radius:50%;
   font-size:18px;
 }
 
-/* PREMIUM */
-.premium{
-  border:2px solid gold;
-}
-.plano{
-  border:1px solid gold;
-  padding:10px;
-  margin-top:10px;
-}
-.vip{
-  background:#111;
+/* CONFIG */
+#configBtn{
+  position:fixed;
+  right:15px;
+  top:50%;
+  transform:translateY(-50%);
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:var(--primaria);
 }
 
-/* TRANSIÇÃO */
-#transicao{
+/* HISTÓRICO */
+.registro{
+  border:2px solid;
+  padding:8px;
+  border-radius:10px;
+  margin-top:6px;
+  font-size:14px;
+}
+.verde{border-color:var(--verde)}
+.vermelho{border-color:var(--vermelho)}
+.branco{background:white;color:black}
+
+/* PERFIL MODAL */
+#perfilModal{
   position:fixed;
   inset:0;
-  background:black;
+  background:rgba(0,0,0,0.8);
   display:none;
-  align-items:center;
   justify-content:center;
-  z-index:9998;
+  align-items:center;
 }
-#transicao span{
-  font-size:60px;
-  color:var(--roxo);
-  animation:giro 1.2s;
+#perfilBox{
+  background:white;
+  color:black;
+  padding:20px;
+  border-radius:20px;
+  width:90%;
+  max-width:400px;
+  border:3px solid var(--primaria);
 }
-@keyframes giro{
-  from{transform:rotate(0deg);}
-  to{transform:rotate(720deg);}
+#perfilFoto{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:#ccc;
+  margin:auto;
 }
 </style>
 </head>
 
 <body>
 
-<!-- INTRO -->
 <div id="intro">
   <h1>MyMoney$</h1>
   <p>Aguardando...</p>
@@ -178,81 +193,38 @@ nav button{
 
 <div id="transicao"><span>$</span></div>
 
-<header>
-  <h1>MyMoney$</h1>
-</header>
+<header><h1>MyMoney$</h1></header>
 
-<!-- ABA 1 -->
 <section id="reflexao" class="ativa">
-  <div class="card">
-    <h2>Bem-vindo.</h2>
-    <p>O dinheiro não some. Ele apenas muda de mãos.</p>
-  </div>
-  <div class="card">
-    <p>Se você não decide para onde o dinheiro vai, ele decide por você.</p>
-  </div>
-  <div class="card">
-    <p>Economizar é assumir o controle da própria história.</p>
-  </div>
+  <div class="card"><p>Se você não controla o dinheiro, ele controla você.</p></div>
+  <div class="card"><p>Economizar é escolher liberdade.</p></div>
 </section>
 
-<!-- ABA 2 -->
 <section id="perfil">
   <div class="card">
-    <input id="nome" placeholder="Seu nome">
     <input id="salario" type="number" placeholder="Salário mensal">
     <input id="gastos" type="number" placeholder="Gastos mensais">
-    <input id="meta" type="number" placeholder="Quanto quer juntar">
-    <input id="meses" type="number" placeholder="Em quantos meses">
-
-    <button onclick="calcularPerfil()">Calcular economia</button>
+    <input id="meta" type="number" placeholder="Meta">
+    <input id="meses" type="number" placeholder="Meses">
+    <button onclick="calcular()">Calcular</button>
     <p id="resultado"></p>
-
-    <button onclick="mostrarPlano()">Estou pronto</button>
   </div>
 </section>
 
-<!-- ABA OCULTA -->
-<section id="plano">
-  <div class="card">
-    <h2>Seu plano financeiro</h2>
-    <p id="textoPlano"></p>
-    <h3 id="valorMensal"></h3>
-  </div>
-</section>
-
-<!-- ABA 3 -->
 <section id="progresso">
   <div class="card">
-    <canvas id="grafico" width="320" height="220"></canvas>
-    <button onclick="addGasto()">Adicionar gasto</button>
-    <button onclick="addRenda()">Adicionar renda</button>
+    <button onclick="novaEntrada('renda')">Adicionar renda</button>
+    <button onclick="novaEntrada('gasto')">Adicionar gasto</button>
+    <div id="historico"></div>
   </div>
 </section>
 
-<!-- ABA 4 -->
 <section id="premium">
-  <div class="card premium">
+  <div class="card">
     <h2>MyMoney$PRO 👑</h2>
-
-    <div class="plano">
-      <h3>Básico — $10,90</h3>
-      ✔ Organização financeira<br>
-      ✔ Dicas mensais
-    </div>
-
-    <div class="plano">
-      <h3>Avançado — $19,90</h3>
-      ✔ Milhas<br>
-      ✔ Cartões<br>
-      ✔ Promoções
-    </div>
-
-    <div class="plano vip">
-      <h3>VIP — ILIMITADO</h3>
-      ✔ Perfis empresariais<br>
-      ✔ Crescimento financeiro completo
-    </div>
+    ✔ Crescimento financeiro<br>
+    ✔ Perfis empresariais<br>
+    ✔ Estratégias avançadas
   </div>
 </section>
 
@@ -263,13 +235,25 @@ nav button{
   <button onclick="trocarAba('premium')">👑</button>
 </nav>
 
+<button id="configBtn" onclick="abrirPerfil()">⚙️</button>
+
+<div id="perfilModal">
+  <div id="perfilBox">
+    <div id="perfilFoto"></div>
+    <input placeholder="Nome">
+    <input placeholder="Idade">
+    <input placeholder="País">
+    <input placeholder="Empresa">
+    <button onclick="fecharPerfil()">Salvar</button>
+  </div>
+</div>
+
 <script>
-let dados={};
+setTimeout(()=>intro.classList.add("hide"),1500);
 
 function transicao(){
-  const t=document.getElementById("transicao");
-  t.style.display="flex";
-  setTimeout(()=>t.style.display="none",1200);
+  transicaoDiv.style.display="flex";
+  setTimeout(()=>transicaoDiv.style.display="none",1500);
 }
 
 function trocarAba(id){
@@ -277,34 +261,30 @@ function trocarAba(id){
   setTimeout(()=>{
     document.querySelectorAll("section").forEach(s=>s.classList.remove("ativa"));
     document.getElementById(id).classList.add("ativa");
-  },600);
+  },700);
 }
 
-function calcularPerfil(){
-  const s=+salario.value;
-  const g=+gastos.value;
-  const m=+meta.value;
-  const mesesQtd=+meses.value;
-  const sobra=s-g;
-  const porMes=m/mesesQtd;
-
-  dados={s,g,m,mesesQtd,porMes};
-
-  resultado.innerText=`Você precisa guardar $${porMes.toFixed(2)} por mês`;
-
-  if(porMes>sobra){
-    trocarAba("premium");
-  }
+function calcular(){
+  const sobra=salario.value-gastos.value;
+  const porMes=meta.value/meses.value;
+  resultado.innerText=`Guardar $${porMes.toFixed(2)} / mês`;
+  if(porMes>sobra) trocarAba("premium");
 }
 
-function mostrarPlano(){
-  textoPlano.innerText="Disciplina constrói riqueza. Constância muda destinos.";
-  valorMensal.innerText=`$${dados.porMes.toFixed(2)} por mês`;
-  trocarAba("plano");
+function novaEntrada(tipo){
+  const v=prompt("Digite o valor");
+  if(!v) return;
+  const d=new Date();
+  const div=document.createElement("div");
+  div.className=`registro ${tipo=="renda"?"verde":"vermelho"}`;
+  div.innerHTML=`$${Number(v).toFixed(2)}<br>${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
+  historico.prepend(div);
 }
 
-function addGasto(){alert("Gasto registrado");}
-function addRenda(){alert("Renda registrada");}
+function abrirPerfil(){perfilModal.style.display="flex"}
+function fecharPerfil(){perfilModal.style.display="none"}
+
+const transicaoDiv=document.getElementById("transicao");
 </script>
 
 </body>
