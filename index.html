@@ -10,15 +10,14 @@
   --primaria:#8b00ff;
   --fundo:#000;
   --texto:#fff;
+  --card:#1c0128;
   --verde:#00ff88;
   --vermelho:#ff4444;
-  --card:#2a003a;
+  --ouro:#d4af37;
 }
 
-/* RESET */
 *{box-sizing:border-box;margin:0;padding:0}
 
-/* BODY */
 body{
   font-family:Arial, sans-serif;
   background:var(--fundo);
@@ -27,22 +26,22 @@ body{
   transition:.3s;
 }
 
-/* FUNDO DECORATIVO */
+/* FUNDO */
 body::before{
   content:"$";
   position:fixed;
   font-size:420px;
   left:-160px;
   top:120px;
-  color:rgba(150,0,255,0.08);
+  color:rgba(150,0,255,0.06);
   z-index:-1;
 }
 body::after{
   content:"$";
   position:fixed;
   font-size:360px;
-  right:-120px;
-  bottom:-120px;
+  right:-140px;
+  bottom:-140px;
   color:rgba(150,0,255,0.05);
   z-index:-1;
 }
@@ -77,7 +76,7 @@ body::after{
   z-index:9998;
 }
 #transicao span{
-  font-size:72px;
+  font-size:70px;
   color:var(--primaria);
   animation:saltar 1.2s;
 }
@@ -94,20 +93,26 @@ header{
   border-bottom:2px solid var(--primaria);
 }
 
-/* SECTIONS */
+/* SEÇÕES */
 section{
   display:none;
   padding:80px 20px 130px;
 }
 section.ativa{display:block}
 
-/* CARD */
+/* CARDS */
 .card{
-  max-width:520px;
+  max-width:560px;
   margin:15px auto;
   background:linear-gradient(135deg,var(--primaria),var(--card));
   border-radius:20px;
   padding:24px;
+}
+
+/* CARD BRANCO */
+.card-white{
+  background:#fff;
+  color:#000;
 }
 
 /* INPUTS */
@@ -117,7 +122,6 @@ input,button,select{
   margin:6px 0;
   border:none;
   border-radius:12px;
-  font-size:14px;
 }
 button{
   background:var(--primaria);
@@ -140,35 +144,37 @@ nav button{
   font-size:18px;
 }
 
+/* BOTÃO SIMULAÇÃO */
+#simulacaoBtn{
+  position:fixed;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  background:var(--primaria);
+  color:white;
+}
+
 /* CONFIG */
 #configBtn{
   position:fixed;
   right:15px;
   top:50%;
   transform:translateY(-50%);
-  width:48px;
-  height:48px;
+  width:54px;
+  height:54px;
   border-radius:50%;
   background:var(--primaria);
   color:white;
 }
 
-/* HISTÓRICO */
-.registro{
-  border:2px solid;
-  padding:8px;
-  border-radius:10px;
-  margin-top:6px;
-  font-size:14px;
-}
-.verde{border-color:var(--verde)}
-.vermelho{border-color:var(--vermelho)}
-
 /* MODAL */
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.8);
+  background:rgba(0,0,0,.85);
   display:none;
   justify-content:center;
   align-items:center;
@@ -183,6 +189,32 @@ nav button{
   max-width:420px;
   border:3px solid var(--primaria);
 }
+
+/* CONCORRENTES */
+.conc{
+  padding:10px;
+  border-radius:10px;
+  margin-top:6px;
+  background:#111;
+}
+.up{color:var(--verde)}
+.down{color:var(--vermelho)}
+
+/* PREMIUM */
+.premium-box{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.plano{
+  flex:1;
+  min-width:220px;
+  background:#111;
+  border:2px solid var(--ouro);
+  border-radius:20px;
+  padding:18px;
+}
+.plano h3{color:var(--ouro)}
 </style>
 </head>
 
@@ -201,46 +233,77 @@ nav button{
   <h1>MyMoney$</h1>
 </header>
 
-<!-- REFLEXÃO -->
+<!-- REFLEXÃO + BITCOIN -->
 <section id="reflexao" class="ativa">
-  <div class="card">Quem controla o dinheiro, controla o futuro.</div>
-  <div class="card">Economizar é disciplina, não sorte.</div>
-  <div class="card">Liberdade financeira começa agora.</div>
+  <div class="card">
+    <p>Quem entende o mercado, antecipa oportunidades.</p>
+  </div>
+
+  <div class="card card-white">
+    <h3>📊 Acompanhamento do mercado mundial do Bitcoin</h3>
+    <canvas id="btcChart" height="180"></canvas>
+    <p id="btcValor"></p>
+  </div>
 </section>
 
 <!-- PERFIL -->
 <section id="perfil">
   <div class="card">
-    <input id="salario" type="number" placeholder="Salário mensal">
+    <input id="nome" placeholder="Nome">
+    <input id="salario" type="number" placeholder="Renda mensal">
     <input id="gastos" type="number" placeholder="Gastos mensais">
     <input id="meta" type="number" placeholder="Meta financeira">
-    <input id="meses" type="number" placeholder="Meses para atingir">
+    <input id="meses" type="number" placeholder="Em quantos meses">
     <button onclick="calcular()">Calcular</button>
     <p id="resultado"></p>
+  </div>
+</section>
+
+<!-- SIMULAÇÃO -->
+<section id="simulacao">
+  <div class="card">
+    <h2>Simulação de mercado</h2>
+    <p>Comparação com concorrentes simulados:</p>
+
+    <div id="concorrentes"></div>
   </div>
 </section>
 
 <!-- PROGRESSO -->
 <section id="progresso">
   <div class="card">
-    <canvas id="grafico" width="320" height="200"></canvas>
-    <button onclick="novaEntrada('renda')">Adicionar renda</button>
-    <button onclick="novaEntrada('gasto')">Adicionar gasto</button>
-    <div id="historico"></div>
+    <canvas id="grafico" height="200"></canvas>
   </div>
 </section>
 
 <!-- PREMIUM -->
 <section id="premium">
-  <div class="card">
-    <h2>MyMoney$PRO 👑</h2>
-    ✔ Estratégias avançadas<br>
-    ✔ Perfis empresariais<br>
-    ✔ Crescimento acelerado
+  <div class="premium-box">
+    <div class="plano">
+      <h3>Premium Clássico</h3>
+      <p>$10,90 / mês</p>
+      ✔ Mercado financeiro diário<br>
+      ✔ Até 5 simulações
+    </div>
+
+    <div class="plano">
+      <h3>Premium VIP</h3>
+      <p>$49,90 / mês</p>
+      ✔ Garantia de aumento mínimo de 20%*<br>
+      ✔ Milhas, créditos, investimentos<br>
+      ✔ Dicas diárias
+    </div>
+
+    <div class="plano">
+      <h3>Premium Forte</h3>
+      <p>$29,90 / mês</p>
+      ✔ Simulações ilimitadas<br>
+      ✔ Atendimento 24h<br>
+      ✔ Economia diária
+    </div>
   </div>
 </section>
 
-<!-- NAV -->
 <nav>
   <button onclick="trocarAba('reflexao')">❓</button>
   <button onclick="trocarAba('perfil')">👤</button>
@@ -248,12 +311,13 @@ nav button{
   <button onclick="trocarAba('premium')">👑</button>
 </nav>
 
+<button id="simulacaoBtn" onclick="trocarAba('simulacao')">🧪</button>
 <button id="configBtn" onclick="abrirConfig()">⚙️</button>
 
 <!-- CONFIG -->
 <div id="configModal" class="modal">
   <div class="modal-box">
-    <h3>Tema do App</h3>
+    <h3>Configurações</h3>
     <select onchange="trocarTema(this.value)">
       <option value="roxo">Preto & Roxo</option>
       <option value="verde">Preto & Verde</option>
@@ -264,15 +328,15 @@ nav button{
 </div>
 
 <script>
-/* INTRO SEGURA */
+/* INTRO */
 setTimeout(()=>intro.style.display="none",1800);
 
 /* TRANSIÇÃO */
-const transicaoDiv=document.getElementById("transicao");
 function transicao(){
   transicaoDiv.style.display="flex";
   setTimeout(()=>transicaoDiv.style.display="none",1200);
 }
+const transicaoDiv=document.getElementById("transicao");
 
 /* ABAS */
 function trocarAba(id){
@@ -283,78 +347,70 @@ function trocarAba(id){
   },600);
 }
 
-/* DADOS */
-let rendaTotal=0;
-let gastoTotal=0;
-
 /* CÁLCULO */
 function calcular(){
-  const s=+salario.value||0;
-  const g=+gastos.value||0;
-  const m=+meta.value||0;
-  const me=+meses.value||1;
+  const s=+salario.value;
+  const g=+gastos.value;
+  const m=+meta.value;
+  const me=+meses.value;
 
   const sobra=s-g;
   const porMes=m/me;
   resultado.innerText=`Guardar $${porMes.toFixed(2)} por mês`;
 
+  gerarConcorrentes(s);
   if(porMes>sobra) trocarAba("premium");
 }
 
-/* HISTÓRICO + GRÁFICO */
-function novaEntrada(tipo){
-  const v=+prompt("Digite o valor");
-  if(!v) return;
-
-  const d=new Date();
-  if(tipo==="renda") rendaTotal+=v;
-  else gastoTotal+=v;
-
-  const div=document.createElement("div");
-  div.className=`registro ${tipo==="renda"?"verde":"vermelho"}`;
-  div.innerHTML=`$${v.toFixed(2)}<br>${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
-  historico.prepend(div);
-
-  desenharGrafico();
+/* CONCORRENTES */
+function gerarConcorrentes(base){
+  concorrentes.innerHTML="";
+  const nomes=["AlphaCorp","NextMoney","FinUp","CapitalX"];
+  nomes.forEach(n=>{
+    const vari=(Math.random()*0.4-0.2);
+    const renda=base*(1+vari);
+    const div=document.createElement("div");
+    div.className="conc";
+    div.innerHTML=`${n} — $${renda.toFixed(2)} 
+      <span class="${vari>=0?"up":"down"}">
+      (${(vari*100).toFixed(1)}%)
+      </span>`;
+    concorrentes.appendChild(div);
+  });
 }
 
-/* GRÁFICO REAL */
-function desenharGrafico(){
-  const c=document.getElementById("grafico");
-  const ctx=c.getContext("2d");
-  ctx.clearRect(0,0,c.width,c.height);
-
-  const max=Math.max(rendaTotal,gastoTotal,1);
-  const rendaAlt=(rendaTotal/max)*150;
-  const gastoAlt=(gastoTotal/max)*150;
-
-  ctx.fillStyle="#00ff88";
-  ctx.fillRect(80,180-rendaAlt,40,rendaAlt);
-
-  ctx.fillStyle="#ff4444";
-  ctx.fillRect(180,180-gastoAlt,40,gastoAlt);
-}
-
-/* CONFIG */
+/* TEMA */
 function abrirConfig(){configModal.style.display="flex"}
 function fecharConfig(){configModal.style.display="none"}
-
 function trocarTema(t){
   if(t==="verde"){
     document.documentElement.style.setProperty("--primaria","#00ff88");
-    document.documentElement.style.setProperty("--card","#003a22");
-    document.body.style.background="#000";
   }
   if(t==="branco"){
-    document.documentElement.style.setProperty("--primaria","#00aa55");
-    document.documentElement.style.setProperty("--card","#e8fff1");
     document.body.style.background="#fff";
     document.body.style.color="#000";
+    document.documentElement.style.setProperty("--primaria","#00aa55");
   }
-  if(t==="roxo"){
-    location.reload();
-  }
+  if(t==="roxo") location.reload();
 }
+
+/* BITCOIN REAL */
+async function carregarBTC(){
+  const r=await fetch("https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7");
+  const d=await r.json();
+  const ctx=btcChart.getContext("2d");
+  ctx.clearRect(0,0,btcChart.width,btcChart.height);
+  ctx.strokeStyle="#8b00ff";
+  ctx.beginPath();
+  d.prices.forEach((p,i)=>{
+    const x=i*(btcChart.width/d.prices.length);
+    const y=180-(p[1]/d.prices[0][1])*150;
+    ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+  btcValor.innerText="Preço atual: $" + d.prices[d.prices.length-1][1].toFixed(2);
+}
+carregarBTC();
 </script>
 
 </body>
