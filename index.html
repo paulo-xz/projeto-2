@@ -12,22 +12,27 @@
   --texto:#fff;
   --verde:#00ff88;
   --vermelho:#ff4444;
+  --card:#2a003a;
 }
 
+/* RESET */
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* BODY */
 body{
-  margin:0;
   font-family:Arial, sans-serif;
   background:var(--fundo);
   color:var(--texto);
   overflow-x:hidden;
+  transition:.3s;
 }
 
-/* FUNDOS DECORATIVOS */
+/* FUNDO DECORATIVO */
 body::before{
   content:"$";
   position:fixed;
-  font-size:500px;
-  left:-180px;
+  font-size:420px;
+  left:-160px;
   top:120px;
   color:rgba(150,0,255,0.08);
   z-index:-1;
@@ -35,9 +40,9 @@ body::before{
 body::after{
   content:"$";
   position:fixed;
-  font-size:420px;
-  right:-140px;
-  bottom:-80px;
+  font-size:360px;
+  right:-120px;
+  bottom:-120px;
   color:rgba(150,0,255,0.05);
   z-index:-1;
 }
@@ -59,8 +64,7 @@ body::after{
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
-#intro p{color:#aaa;margin-top:10px;}
-.hide{display:none}
+#intro p{color:#aaa;margin-top:10px}
 
 /* TRANSIÇÃO */
 #transicao{
@@ -73,9 +77,9 @@ body::after{
   z-index:9998;
 }
 #transicao span{
-  font-size:70px;
+  font-size:72px;
   color:var(--primaria);
-  animation:saltar 1.5s;
+  animation:saltar 1.2s;
 }
 @keyframes saltar{
   0%{transform:translateY(0)}
@@ -86,30 +90,34 @@ body::after{
 /* HEADER */
 header{
   text-align:center;
-  padding:15px;
+  padding:14px;
   border-bottom:2px solid var(--primaria);
 }
 
-/* SEÇÕES */
-section{display:none;padding:80px 20px 130px}
+/* SECTIONS */
+section{
+  display:none;
+  padding:80px 20px 130px;
+}
 section.ativa{display:block}
 
-/* CARDS */
+/* CARD */
 .card{
   max-width:520px;
   margin:15px auto;
-  background:linear-gradient(135deg,var(--primaria),#2a003a);
+  background:linear-gradient(135deg,var(--primaria),var(--card));
   border-radius:20px;
-  padding:25px;
+  padding:24px;
 }
 
 /* INPUTS */
-input,button{
+input,button,select{
   width:100%;
   padding:12px;
   margin:6px 0;
   border:none;
   border-radius:12px;
+  font-size:14px;
 }
 button{
   background:var(--primaria);
@@ -142,6 +150,7 @@ nav button{
   height:48px;
   border-radius:50%;
   background:var(--primaria);
+  color:white;
 }
 
 /* HISTÓRICO */
@@ -154,80 +163,84 @@ nav button{
 }
 .verde{border-color:var(--verde)}
 .vermelho{border-color:var(--vermelho)}
-.branco{background:white;color:black}
 
-/* PERFIL MODAL */
-#perfilModal{
+/* MODAL */
+.modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.8);
+  background:rgba(0,0,0,.8);
   display:none;
   justify-content:center;
   align-items:center;
+  z-index:9999;
 }
-#perfilBox{
+.modal-box{
   background:white;
   color:black;
   padding:20px;
   border-radius:20px;
   width:90%;
-  max-width:400px;
+  max-width:420px;
   border:3px solid var(--primaria);
-}
-#perfilFoto{
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  background:#ccc;
-  margin:auto;
 }
 </style>
 </head>
 
 <body>
 
+<!-- INTRO -->
 <div id="intro">
   <h1>MyMoney$</h1>
   <p>Aguardando...</p>
 </div>
 
+<!-- TRANSIÇÃO -->
 <div id="transicao"><span>$</span></div>
 
-<header><h1>MyMoney$</h1></header>
+<header>
+  <h1>MyMoney$</h1>
+</header>
 
+<!-- REFLEXÃO -->
 <section id="reflexao" class="ativa">
-  <div class="card"><p>Se você não controla o dinheiro, ele controla você.</p></div>
-  <div class="card"><p>Economizar é escolher liberdade.</p></div>
+  <div class="card">Quem controla o dinheiro, controla o futuro.</div>
+  <div class="card">Economizar é disciplina, não sorte.</div>
+  <div class="card">Liberdade financeira começa agora.</div>
 </section>
 
+<!-- PERFIL -->
 <section id="perfil">
   <div class="card">
     <input id="salario" type="number" placeholder="Salário mensal">
     <input id="gastos" type="number" placeholder="Gastos mensais">
-    <input id="meta" type="number" placeholder="Meta">
-    <input id="meses" type="number" placeholder="Meses">
+    <input id="meta" type="number" placeholder="Meta financeira">
+    <input id="meses" type="number" placeholder="Meses para atingir">
     <button onclick="calcular()">Calcular</button>
     <p id="resultado"></p>
   </div>
 </section>
 
+<!-- PROGRESSO -->
 <section id="progresso">
   <div class="card">
+    <canvas id="grafico" width="320" height="200"></canvas>
     <button onclick="novaEntrada('renda')">Adicionar renda</button>
     <button onclick="novaEntrada('gasto')">Adicionar gasto</button>
     <div id="historico"></div>
   </div>
 </section>
 
+<!-- PREMIUM -->
 <section id="premium">
   <div class="card">
     <h2>MyMoney$PRO 👑</h2>
-    ✔ Crescimento financeiro<br>
+    ✔ Estratégias avançadas<br>
     ✔ Perfis empresariais<br>
-    ✔ Estratégias avançadas
+    ✔ Crescimento acelerado
   </div>
 </section>
 
+<!-- NAV -->
 <nav>
   <button onclick="trocarAba('reflexao')">❓</button>
   <button onclick="trocarAba('perfil')">👤</button>
@@ -235,62 +248,113 @@ nav button{
   <button onclick="trocarAba('premium')">👑</button>
 </nav>
 
-<button id="configBtn" onclick="abrirPerfil()">⚙️</button>
+<button id="configBtn" onclick="abrirConfig()">⚙️</button>
 
-<div id="perfilModal">
-  <div id="perfilBox">
-    <div id="perfilFoto"></div>
-    <input placeholder="Nome">
-    <input placeholder="Idade">
-    <input placeholder="País">
-    <input placeholder="Empresa">
-    <button onclick="fecharPerfil()">Salvar</button>
+<!-- CONFIG -->
+<div id="configModal" class="modal">
+  <div class="modal-box">
+    <h3>Tema do App</h3>
+    <select onchange="trocarTema(this.value)">
+      <option value="roxo">Preto & Roxo</option>
+      <option value="verde">Preto & Verde</option>
+      <option value="branco">Branco & Verde</option>
+    </select>
+    <button onclick="fecharConfig()">Fechar</button>
   </div>
 </div>
 
 <script>
-setTimeout(()=>intro.classList.add("hide"),1500);
+/* INTRO SEGURA */
+setTimeout(()=>intro.style.display="none",1800);
 
+/* TRANSIÇÃO */
+const transicaoDiv=document.getElementById("transicao");
 function transicao(){
   transicaoDiv.style.display="flex";
-  setTimeout(()=>transicaoDiv.style.display="none",1500);
+  setTimeout(()=>transicaoDiv.style.display="none",1200);
 }
 
+/* ABAS */
 function trocarAba(id){
   transicao();
   setTimeout(()=>{
     document.querySelectorAll("section").forEach(s=>s.classList.remove("ativa"));
     document.getElementById(id).classList.add("ativa");
-  },700);
+  },600);
 }
 
+/* DADOS */
+let rendaTotal=0;
+let gastoTotal=0;
+
+/* CÁLCULO */
 function calcular(){
-  const sobra=salario.value-gastos.value;
-  const porMes=meta.value/meses.value;
-  resultado.innerText=`Guardar $${porMes.toFixed(2)} / mês`;
+  const s=+salario.value||0;
+  const g=+gastos.value||0;
+  const m=+meta.value||0;
+  const me=+meses.value||1;
+
+  const sobra=s-g;
+  const porMes=m/me;
+  resultado.innerText=`Guardar $${porMes.toFixed(2)} por mês`;
+
   if(porMes>sobra) trocarAba("premium");
 }
 
+/* HISTÓRICO + GRÁFICO */
 function novaEntrada(tipo){
-  const v=prompt("Digite o valor");
+  const v=+prompt("Digite o valor");
   if(!v) return;
+
   const d=new Date();
+  if(tipo==="renda") rendaTotal+=v;
+  else gastoTotal+=v;
+
   const div=document.createElement("div");
-  div.className=`registro ${tipo=="renda"?"verde":"vermelho"}`;
-  div.innerHTML=`$${Number(v).toFixed(2)}<br>${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
+  div.className=`registro ${tipo==="renda"?"verde":"vermelho"}`;
+  div.innerHTML=`$${v.toFixed(2)}<br>${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
   historico.prepend(div);
+
+  desenharGrafico();
 }
 
-function abrirPerfil(){perfilModal.style.display="flex"}
-function fecharPerfil(){perfilModal.style.display="none"}
+/* GRÁFICO REAL */
+function desenharGrafico(){
+  const c=document.getElementById("grafico");
+  const ctx=c.getContext("2d");
+  ctx.clearRect(0,0,c.width,c.height);
 
-const transicaoDiv=document.getElementById("transicao");
-</script>
-<script>
-setTimeout(() => {
-  const intro = document.getElementById("intro");
-  if (intro) intro.style.display = "none";
-}, 2200);
+  const max=Math.max(rendaTotal,gastoTotal,1);
+  const rendaAlt=(rendaTotal/max)*150;
+  const gastoAlt=(gastoTotal/max)*150;
+
+  ctx.fillStyle="#00ff88";
+  ctx.fillRect(80,180-rendaAlt,40,rendaAlt);
+
+  ctx.fillStyle="#ff4444";
+  ctx.fillRect(180,180-gastoAlt,40,gastoAlt);
+}
+
+/* CONFIG */
+function abrirConfig(){configModal.style.display="flex"}
+function fecharConfig(){configModal.style.display="none"}
+
+function trocarTema(t){
+  if(t==="verde"){
+    document.documentElement.style.setProperty("--primaria","#00ff88");
+    document.documentElement.style.setProperty("--card","#003a22");
+    document.body.style.background="#000";
+  }
+  if(t==="branco"){
+    document.documentElement.style.setProperty("--primaria","#00aa55");
+    document.documentElement.style.setProperty("--card","#e8fff1");
+    document.body.style.background="#fff";
+    document.body.style.color="#000";
+  }
+  if(t==="roxo"){
+    location.reload();
+  }
+}
 </script>
 
 </body>
