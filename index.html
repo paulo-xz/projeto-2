@@ -5,222 +5,12 @@
 <title>MyMoney$</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-:root{
-  --primaria:#8b00ff;
-  --fundo:#000;
-  --texto:#fff;
-  --card:#1c0128;
-  --verde:#00ff88;
-  --vermelho:#ff4444;
-  --ouro:#d4af37;
-}
-
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-  font-family:Arial, sans-serif;
-  background:var(--fundo);
-  color:var(--texto);
-  overflow-x:hidden;
-  transition:.3s;
-}
-
-/* FUNDO */
-body::before{
-  content:"$";
-  position:fixed;
-  font-size:420px;
-  left:-160px;
-  top:120px;
-  color:rgba(150,0,255,0.06);
-  z-index:-1;
-}
-body::after{
-  content:"$";
-  position:fixed;
-  font-size:360px;
-  right:-140px;
-  bottom:-140px;
-  color:rgba(150,0,255,0.05);
-  z-index:-1;
-}
-
-/* INTRO */
-#intro{
-  position:fixed;
-  inset:0;
-  background:black;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-}
-#intro h1{
-  font-size:56px;
-  background:linear-gradient(90deg,#000,var(--primaria));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-#intro p{color:#aaa;margin-top:10px}
-
-/* TRANSIÇÃO */
-#transicao{
-  position:fixed;
-  inset:0;
-  background:black;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:9998;
-}
-#transicao span{
-  font-size:70px;
-  color:var(--primaria);
-  animation:saltar 1.2s;
-}
-@keyframes saltar{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-80px)}
-  100%{transform:translateY(0)}
-}
-
-/* HEADER */
-header{
-  text-align:center;
-  padding:14px;
-  border-bottom:2px solid var(--primaria);
-}
-
-/* SEÇÕES */
-section{
-  display:none;
-  padding:80px 20px 130px;
-}
-section.ativa{display:block}
-
-/* CARDS */
-.card{
-  max-width:560px;
-  margin:15px auto;
-  background:linear-gradient(135deg,var(--primaria),var(--card));
-  border-radius:20px;
-  padding:24px;
-}
-
-/* CARD BRANCO */
-.card-white{
-  background:#fff;
-  color:#000;
-}
-
-/* INPUTS */
-input,button,select{
-  width:100%;
-  padding:12px;
-  margin:6px 0;
-  border:none;
-  border-radius:12px;
-}
-button{
-  background:var(--primaria);
-  color:white;
-  cursor:pointer;
-}
-
-/* NAV */
-nav{
-  position:fixed;
-  bottom:10px;
-  width:100%;
-  display:flex;
-  justify-content:space-around;
-}
-nav button{
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  font-size:18px;
-}
-
-/* BOTÃO SIMULAÇÃO */
-#simulacaoBtn{
-  position:fixed;
-  left:15px;
-  top:50%;
-  transform:translateY(-50%);
-  width:54px;
-  height:54px;
-  border-radius:50%;
-  background:var(--primaria);
-  color:white;
-}
-
-/* CONFIG */
-#configBtn{
-  position:fixed;
-  right:15px;
-  top:50%;
-  transform:translateY(-50%);
-  width:54px;
-  height:54px;
-  border-radius:50%;
-  background:var(--primaria);
-  color:white;
-}
-
-/* MODAL */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-}
-.modal-box{
-  background:white;
-  color:black;
-  padding:20px;
-  border-radius:20px;
-  width:90%;
-  max-width:420px;
-  border:3px solid var(--primaria);
-}
-
-/* CONCORRENTES */
-.conc{
-  padding:10px;
-  border-radius:10px;
-  margin-top:6px;
-  background:#111;
-}
-.up{color:var(--verde)}
-.down{color:var(--vermelho)}
-
-/* PREMIUM */
-.premium-box{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.plano{
-  flex:1;
-  min-width:220px;
-  background:#111;
-  border:2px solid var(--ouro);
-  border-radius:20px;
-  padding:18px;
-}
-.plano h3{color:var(--ouro)}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- INTRO -->
+<!-- INTRO RÁPIDA -->
 <div id="intro">
   <h1>MyMoney$</h1>
   <p>Aguardando...</p>
@@ -233,185 +23,133 @@ nav button{
   <h1>MyMoney$</h1>
 </header>
 
-<!-- REFLEXÃO + BITCOIN -->
-<section id="reflexao" class="ativa">
-  <div class="card">
-    <p>Quem entende o mercado, antecipa oportunidades.</p>
-  </div>
+<!-- BOTÃO SIMULAÇÃO -->
+<button id="simulacaoBtn" onclick="abrirSimulacao()">📊 Simulação</button>
 
-  <div class="card card-white">
-    <h3>📊 Acompanhamento do mercado mundial do Bitcoin</h3>
-    <canvas id="btcChart" height="180"></canvas>
-    <p id="btcValor"></p>
+<!-- BOTÃO CONFIG -->
+<button id="configBtn" onclick="abrirConfig()">⚙️</button>
+
+<!-- ABA 1 – MERCADO -->
+<section id="mercado" class="ativa">
+  <h2 class="titulo">📈 Acompanhe o mercado financeiro mundial</h2>
+
+  <div class="market-grid">
+    <div class="market-card">
+      <h3>Bitcoin</h3>
+      <p id="btc"></p>
+    </div>
+    <div class="market-card">
+      <h3>Ethereum</h3>
+      <p id="eth"></p>
+    </div>
+    <div class="market-card">
+      <h3>BNB</h3>
+      <p id="bnb"></p>
+    </div>
+    <div class="market-card">
+      <h3>Ibovespa</h3>
+      <p id="ibov"></p>
+    </div>
   </div>
 </section>
 
-<!-- PERFIL -->
+<!-- ABA 2 – PERFIL -->
 <section id="perfil">
   <div class="card">
+    <h2>Seu Perfil</h2>
+
     <input id="nome" placeholder="Nome">
-    <input id="salario" type="number" placeholder="Renda mensal">
+    <input id="renda" type="number" placeholder="Renda mensal">
     <input id="gastos" type="number" placeholder="Gastos mensais">
     <input id="meta" type="number" placeholder="Meta financeira">
     <input id="meses" type="number" placeholder="Em quantos meses">
-    <button onclick="calcular()">Calcular</button>
-    <p id="resultado"></p>
+
+    <button onclick="calcularPerfil()">Calcular</button>
+    <p id="resultadoPerfil"></p>
+
+    <p class="texto-ajuda">
+      Essa área serve para entendermos melhor seu perfil financeiro e oferecer
+      as melhores análises e simulações do mercado global.
+    </p>
   </div>
 </section>
 
-<!-- SIMULAÇÃO -->
-<section id="simulacao">
-  <div class="card">
-    <h2>Simulação de mercado</h2>
-    <p>Comparação com concorrentes simulados:</p>
-
-    <div id="concorrentes"></div>
-  </div>
-</section>
-
-<!-- PROGRESSO -->
+<!-- ABA 3 – PROGRESSO -->
 <section id="progresso">
   <div class="card">
-    <canvas id="grafico" height="200"></canvas>
+    <h2>Progresso Financeiro</h2>
+
+    <canvas id="grafico" height="220"></canvas>
+
+    <button class="btn-verde" onclick="adicionarEntrada('renda')">Adicionar renda</button>
+    <button class="btn-vermelho" onclick="adicionarEntrada('gasto')">Adicionar gasto</button>
+
+    <div id="historico"></div>
   </div>
 </section>
 
-<!-- PREMIUM -->
+<!-- ABA 4 – PREMIUM -->
 <section id="premium">
-  <div class="premium-box">
+  <h2>👑 Planos MyMoney$</h2>
+
+  <div class="planos">
     <div class="plano">
-      <h3>Premium Clássico</h3>
-      <p>$10,90 / mês</p>
-      ✔ Mercado financeiro diário<br>
-      ✔ Até 5 simulações
+      <h3>Clássico</h3>
+      <p>$10,90</p>
+      <ul>
+        <li>Acompanhamento diário</li>
+        <li>5 simulações</li>
+      </ul>
+    </div>
+
+    <div class="plano vip">
+      <h3>VIP</h3>
+      <p>$49,90</p>
+      <ul>
+        <li>Simulações ilimitadas</li>
+        <li>Dicas diárias</li>
+        <li>Mercado global</li>
+      </ul>
     </div>
 
     <div class="plano">
-      <h3>Premium VIP</h3>
-      <p>$49,90 / mês</p>
-      ✔ Garantia de aumento mínimo de 20%*<br>
-      ✔ Milhas, créditos, investimentos<br>
-      ✔ Dicas diárias
-    </div>
-
-    <div class="plano">
-      <h3>Premium Forte</h3>
-      <p>$29,90 / mês</p>
-      ✔ Simulações ilimitadas<br>
-      ✔ Atendimento 24h<br>
-      ✔ Economia diária
+      <h3>Forte</h3>
+      <p>$29,90</p>
+      <ul>
+        <li>Atendimento 24h</li>
+        <li>Estratégias avançadas</li>
+      </ul>
     </div>
   </div>
+
+  <p class="texto-premium">
+    Investir em informação financeira é o caminho mais seguro para crescer,
+    economizar e antecipar oportunidades reais no mercado global.
+  </p>
 </section>
 
+<!-- NAVEGAÇÃO -->
 <nav>
-  <button onclick="trocarAba('reflexao')">❓</button>
+  <button onclick="trocarAba('mercado')">$</button>
   <button onclick="trocarAba('perfil')">👤</button>
-  <button onclick="trocarAba('progresso')">📈</button>
+  <button onclick="trocarAba('progresso')">📊</button>
   <button onclick="trocarAba('premium')">👑</button>
 </nav>
 
-<button id="simulacaoBtn" onclick="trocarAba('simulacao')">🧪</button>
-<button id="configBtn" onclick="abrirConfig()">⚙️</button>
-
 <!-- CONFIG -->
-<div id="configModal" class="modal">
-  <div class="modal-box">
+<div id="configModal">
+  <div class="configBox">
     <h3>Configurações</h3>
-    <select onchange="trocarTema(this.value)">
-      <option value="roxo">Preto & Roxo</option>
-      <option value="verde">Preto & Verde</option>
-      <option value="branco">Branco & Verde</option>
-    </select>
+
+    <button onclick="setTema('roxo')">Preto & Roxo</button>
+    <button onclick="setTema('verde')">Preto & Verde</button>
+    <button onclick="setTema('claro')">Branco & Verde</button>
+
     <button onclick="fecharConfig()">Fechar</button>
   </div>
 </div>
 
-<script>
-/* INTRO */
-setTimeout(()=>intro.style.display="none",1800);
-
-/* TRANSIÇÃO */
-function transicao(){
-  transicaoDiv.style.display="flex";
-  setTimeout(()=>transicaoDiv.style.display="none",1200);
-}
-const transicaoDiv=document.getElementById("transicao");
-
-/* ABAS */
-function trocarAba(id){
-  transicao();
-  setTimeout(()=>{
-    document.querySelectorAll("section").forEach(s=>s.classList.remove("ativa"));
-    document.getElementById(id).classList.add("ativa");
-  },600);
-}
-
-/* CÁLCULO */
-function calcular(){
-  const s=+salario.value;
-  const g=+gastos.value;
-  const m=+meta.value;
-  const me=+meses.value;
-
-  const sobra=s-g;
-  const porMes=m/me;
-  resultado.innerText=`Guardar $${porMes.toFixed(2)} por mês`;
-
-  gerarConcorrentes(s);
-  if(porMes>sobra) trocarAba("premium");
-}
-
-/* CONCORRENTES */
-function gerarConcorrentes(base){
-  concorrentes.innerHTML="";
-  const nomes=["AlphaCorp","NextMoney","FinUp","CapitalX"];
-  nomes.forEach(n=>{
-    const vari=(Math.random()*0.4-0.2);
-    const renda=base*(1+vari);
-    const div=document.createElement("div");
-    div.className="conc";
-    div.innerHTML=`${n} — $${renda.toFixed(2)} 
-      <span class="${vari>=0?"up":"down"}">
-      (${(vari*100).toFixed(1)}%)
-      </span>`;
-    concorrentes.appendChild(div);
-  });
-}
-
-/* TEMA */
-function abrirConfig(){configModal.style.display="flex"}
-function fecharConfig(){configModal.style.display="none"}
-function trocarTema(t){
-  if(t==="verde"){
-    document.documentElement.style.setProperty("--primaria","#00ff88");
-  }
-  if(t==="branco"){
-    document.body.style.background="#fff";
-    document.body.style.color="#000";
-    document.documentElement.style.setProperty("--primaria","#00aa55");
-  }
-  if(t==="roxo") location.reload();
-}
-
-/* BITCOIN REAL */
-async function carregarBTC(){
-  const r=await fetch("https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7");
-  const d=await r.json();
-  const ctx=btcChart.getContext("2d");
-  ctx.clearRect(0,0,btcChart.width,btcChart.height);
-  ctx.strokeStyle="#8b00ff";
-  ctx.beginPath();
-  d.prices.forEach((p,i)=>{
-    const x=i*(btcChart.width/d.prices.length);
-    const y=180-(p[1]/d.prices[0][1])*150;
-    ctx.lineTo(x,y);
-  });
-  ctx.stroke();
-  btcValor.innerText="Preço atual: $" + d.prices[d.prices.length-1][1].toFixed(2);
-}
-carregarBTC();
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
+
