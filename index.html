@@ -5,12 +5,190 @@
 <title>MyMoney$</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
+<style>
+:root{
+  --primaria:#8b00ff;
+  --fundo:#000;
+  --texto:#fff;
+  --verde:#00ff88;
+  --vermelho:#ff4444;
+  --card:#2a003a;
+}
+
+/* RESET */
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* BODY */
+body{
+  font-family:Arial, sans-serif;
+  background:var(--fundo);
+  color:var(--texto);
+  overflow-x:hidden;
+  transition:.3s;
+}
+
+/* FUNDO DECORATIVO */
+body::before{
+  content:"$";
+  position:fixed;
+  font-size:420px;
+  left:-160px;
+  top:120px;
+  color:rgba(150,0,255,0.08);
+  z-index:-1;
+}
+body::after{
+  content:"$";
+  position:fixed;
+  font-size:360px;
+  right:-120px;
+  bottom:-120px;
+  color:rgba(150,0,255,0.05);
+  z-index:-1;
+}
+
+/* INTRO */
+#intro{
+  position:fixed;
+  inset:0;
+  background:black;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+#intro h1{
+  font-size:56px;
+  background:linear-gradient(90deg,#000,var(--primaria));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+#intro p{color:#aaa;margin-top:10px}
+
+/* TRANSIÇÃO */
+#transicao{
+  position:fixed;
+  inset:0;
+  background:black;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9998;
+}
+#transicao span{
+  font-size:72px;
+  color:var(--primaria);
+  animation:saltar 1.2s;
+}
+@keyframes saltar{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-80px)}
+  100%{transform:translateY(0)}
+}
+
+/* HEADER */
+header{
+  text-align:center;
+  padding:14px;
+  border-bottom:2px solid var(--primaria);
+}
+
+/* SECTIONS */
+section{
+  display:none;
+  padding:80px 20px 130px;
+}
+section.ativa{display:block}
+
+/* CARD */
+.card{
+  max-width:520px;
+  margin:15px auto;
+  background:linear-gradient(135deg,var(--primaria),var(--card));
+  border-radius:20px;
+  padding:24px;
+}
+
+/* INPUTS */
+input,button,select{
+  width:100%;
+  padding:12px;
+  margin:6px 0;
+  border:none;
+  border-radius:12px;
+  font-size:14px;
+}
+button{
+  background:var(--primaria);
+  color:white;
+  cursor:pointer;
+}
+
+/* NAV */
+nav{
+  position:fixed;
+  bottom:10px;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+}
+nav button{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  font-size:18px;
+}
+
+/* CONFIG */
+#configBtn{
+  position:fixed;
+  right:15px;
+  top:50%;
+  transform:translateY(-50%);
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:var(--primaria);
+  color:white;
+}
+
+/* HISTÓRICO */
+.registro{
+  border:2px solid;
+  padding:8px;
+  border-radius:10px;
+  margin-top:6px;
+  font-size:14px;
+}
+.verde{border-color:var(--verde)}
+.vermelho{border-color:var(--vermelho)}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+.modal-box{
+  background:white;
+  color:black;
+  padding:20px;
+  border-radius:20px;
+  width:90%;
+  max-width:420px;
+  border:3px solid var(--primaria);
+}
+</style>
 </head>
 
 <body>
 
-<!-- INTRO RÁPIDA -->
+<!-- INTRO -->
 <div id="intro">
   <h1>MyMoney$</h1>
   <p>Aguardando...</p>
@@ -23,133 +201,161 @@
   <h1>MyMoney$</h1>
 </header>
 
-<!-- BOTÃO SIMULAÇÃO -->
-<button id="simulacaoBtn" onclick="abrirSimulacao()">📊 Simulação</button>
-
-<!-- BOTÃO CONFIG -->
-<button id="configBtn" onclick="abrirConfig()">⚙️</button>
-
-<!-- ABA 1 – MERCADO -->
-<section id="mercado" class="ativa">
-  <h2 class="titulo">📈 Acompanhe o mercado financeiro mundial</h2>
-
-  <div class="market-grid">
-    <div class="market-card">
-      <h3>Bitcoin</h3>
-      <p id="btc"></p>
-    </div>
-    <div class="market-card">
-      <h3>Ethereum</h3>
-      <p id="eth"></p>
-    </div>
-    <div class="market-card">
-      <h3>BNB</h3>
-      <p id="bnb"></p>
-    </div>
-    <div class="market-card">
-      <h3>Ibovespa</h3>
-      <p id="ibov"></p>
-    </div>
-  </div>
+<!-- REFLEXÃO -->
+<section id="reflexao" class="ativa">
+  <div class="card">Quem controla o dinheiro, controla o futuro.</div>
+  <div class="card">Economizar é disciplina, não sorte.</div>
+  <div class="card">Liberdade financeira começa agora.</div>
 </section>
 
-<!-- ABA 2 – PERFIL -->
+<!-- PERFIL -->
 <section id="perfil">
   <div class="card">
-    <h2>Seu Perfil</h2>
-
-    <input id="nome" placeholder="Nome">
-    <input id="renda" type="number" placeholder="Renda mensal">
+    <input id="salario" type="number" placeholder="Salário mensal">
     <input id="gastos" type="number" placeholder="Gastos mensais">
     <input id="meta" type="number" placeholder="Meta financeira">
-    <input id="meses" type="number" placeholder="Em quantos meses">
-
-    <button onclick="calcularPerfil()">Calcular</button>
-    <p id="resultadoPerfil"></p>
-
-    <p class="texto-ajuda">
-      Essa área serve para entendermos melhor seu perfil financeiro e oferecer
-      as melhores análises e simulações do mercado global.
-    </p>
+    <input id="meses" type="number" placeholder="Meses para atingir">
+    <button onclick="calcular()">Calcular</button>
+    <p id="resultado"></p>
   </div>
 </section>
 
-<!-- ABA 3 – PROGRESSO -->
+<!-- PROGRESSO -->
 <section id="progresso">
   <div class="card">
-    <h2>Progresso Financeiro</h2>
-
-    <canvas id="grafico" height="220"></canvas>
-
-    <button class="btn-verde" onclick="adicionarEntrada('renda')">Adicionar renda</button>
-    <button class="btn-vermelho" onclick="adicionarEntrada('gasto')">Adicionar gasto</button>
-
+    <canvas id="grafico" width="320" height="200"></canvas>
+    <button onclick="novaEntrada('renda')">Adicionar renda</button>
+    <button onclick="novaEntrada('gasto')">Adicionar gasto</button>
     <div id="historico"></div>
   </div>
 </section>
 
-<!-- ABA 4 – PREMIUM -->
+<!-- PREMIUM -->
 <section id="premium">
-  <h2>👑 Planos MyMoney$</h2>
-
-  <div class="planos">
-    <div class="plano">
-      <h3>Clássico</h3>
-      <p>$10,90</p>
-      <ul>
-        <li>Acompanhamento diário</li>
-        <li>5 simulações</li>
-      </ul>
-    </div>
-
-    <div class="plano vip">
-      <h3>VIP</h3>
-      <p>$49,90</p>
-      <ul>
-        <li>Simulações ilimitadas</li>
-        <li>Dicas diárias</li>
-        <li>Mercado global</li>
-      </ul>
-    </div>
-
-    <div class="plano">
-      <h3>Forte</h3>
-      <p>$29,90</p>
-      <ul>
-        <li>Atendimento 24h</li>
-        <li>Estratégias avançadas</li>
-      </ul>
-    </div>
+  <div class="card">
+    <h2>MyMoney$PRO 👑</h2>
+    ✔ Estratégias avançadas<br>
+    ✔ Perfis empresariais<br>
+    ✔ Crescimento acelerado
   </div>
-
-  <p class="texto-premium">
-    Investir em informação financeira é o caminho mais seguro para crescer,
-    economizar e antecipar oportunidades reais no mercado global.
-  </p>
 </section>
 
-<!-- NAVEGAÇÃO -->
+<!-- NAV -->
 <nav>
-  <button onclick="trocarAba('mercado')">$</button>
+  <button onclick="trocarAba('reflexao')">❓</button>
   <button onclick="trocarAba('perfil')">👤</button>
-  <button onclick="trocarAba('progresso')">📊</button>
+  <button onclick="trocarAba('progresso')">📈</button>
   <button onclick="trocarAba('premium')">👑</button>
 </nav>
 
+<button id="configBtn" onclick="abrirConfig()">⚙️</button>
+
 <!-- CONFIG -->
-<div id="configModal">
-  <div class="configBox">
-    <h3>Configurações</h3>
-
-    <button onclick="setTema('roxo')">Preto & Roxo</button>
-    <button onclick="setTema('verde')">Preto & Verde</button>
-    <button onclick="setTema('claro')">Branco & Verde</button>
-
+<div id="configModal" class="modal">
+  <div class="modal-box">
+    <h3>Tema do App</h3>
+    <select onchange="trocarTema(this.value)">
+      <option value="roxo">Preto & Roxo</option>
+      <option value="verde">Preto & Verde</option>
+      <option value="branco">Branco & Verde</option>
+    </select>
     <button onclick="fecharConfig()">Fechar</button>
   </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+/* INTRO SEGURA */
+setTimeout(()=>intro.style.display="none",1800);
+
+/* TRANSIÇÃO */
+const transicaoDiv=document.getElementById("transicao");
+function transicao(){
+  transicaoDiv.style.display="flex";
+  setTimeout(()=>transicaoDiv.style.display="none",1200);
+}
+
+/* ABAS */
+function trocarAba(id){
+  transicao();
+  setTimeout(()=>{
+    document.querySelectorAll("section").forEach(s=>s.classList.remove("ativa"));
+    document.getElementById(id).classList.add("ativa");
+  },600);
+}
+
+/* DADOS */
+let rendaTotal=0;
+let gastoTotal=0;
+
+/* CÁLCULO */
+function calcular(){
+  const s=+salario.value||0;
+  const g=+gastos.value||0;
+  const m=+meta.value||0;
+  const me=+meses.value||1;
+
+  const sobra=s-g;
+  const porMes=m/me;
+  resultado.innerText=`Guardar $${porMes.toFixed(2)} por mês`;
+
+  if(porMes>sobra) trocarAba("premium");
+}
+
+/* HISTÓRICO + GRÁFICO */
+function novaEntrada(tipo){
+  const v=+prompt("Digite o valor");
+  if(!v) return;
+
+  const d=new Date();
+  if(tipo==="renda") rendaTotal+=v;
+  else gastoTotal+=v;
+
+  const div=document.createElement("div");
+  div.className=`registro ${tipo==="renda"?"verde":"vermelho"}`;
+  div.innerHTML=`$${v.toFixed(2)}<br>${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
+  historico.prepend(div);
+
+  desenharGrafico();
+}
+
+/* GRÁFICO REAL */
+function desenharGrafico(){
+  const c=document.getElementById("grafico");
+  const ctx=c.getContext("2d");
+  ctx.clearRect(0,0,c.width,c.height);
+
+  const max=Math.max(rendaTotal,gastoTotal,1);
+  const rendaAlt=(rendaTotal/max)*150;
+  const gastoAlt=(gastoTotal/max)*150;
+
+  ctx.fillStyle="#00ff88";
+  ctx.fillRect(80,180-rendaAlt,40,rendaAlt);
+
+  ctx.fillStyle="#ff4444";
+  ctx.fillRect(180,180-gastoAlt,40,gastoAlt);
+}
+
+/* CONFIG */
+function abrirConfig(){configModal.style.display="flex"}
+function fecharConfig(){configModal.style.display="none"}
+
+function trocarTema(t){
+  if(t==="verde"){
+    document.documentElement.style.setProperty("--primaria","#00ff88");
+    document.documentElement.style.setProperty("--card","#003a22");
+    document.body.style.background="#000";
+  }
+  if(t==="branco"){
+    document.documentElement.style.setProperty("--primaria","#00aa55");
+    document.documentElement.style.setProperty("--card","#e8fff1");
+    document.body.style.background="#fff";
+    document.body.style.color="#000";
+  }
+  if(t==="roxo"){
+    location.reload();
+  }
+}
+</script>
+
 </body>
 </html>
-
