@@ -1,160 +1,112 @@
-:root {
-  --principal: purple;
-  --fundo: black;
-  --texto: white;
+:root{
+  --bg:#000;
+  --card:#111;
+  --primary:#8b00ff;
+  --text:#fff;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: var(--fundo);
-  color: var(--texto);
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
-/* FUNDO DECORATIVO */
-body::before {
-  content: "$";
-  position: fixed;
-  font-size: 500px;
-  color: rgba(128,0,255,0.08);
-  left: -150px;
-  top: 100px;
-  z-index: -1;
+header{
+  text-align:center;
+  padding:12px;
+  border-bottom:2px solid var(--primary);
 }
 
-body::after {
-  content: "";
-  position: fixed;
-  width: 400px;
-  height: 200px;
-  border: 8px solid var(--principal);
-  border-radius: 50%;
-  transform: rotate(-30deg);
-  left: 50px;
-  top: 200px;
-  z-index: -1;
+#intro{
+  position:fixed;
+  inset:0;
+  background:black;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
 }
 
-.topo {
-  text-align: center;
-  padding: 15px;
-  border-bottom: 2px solid var(--principal);
+#intro h1{
+  font-size:52px;
+  background:linear-gradient(90deg,#000,var(--primary));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-section {
-  display: none;
-  padding: 80px 20px 120px;
+section{display:none;padding:90px 20px 120px}
+section.ativa{display:block}
+
+.card{
+  max-width:520px;
+  margin:auto;
+  background:var(--card);
+  padding:20px;
+  border-radius:20px;
 }
 
-section.ativa {
-  display: block;
+.market-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:15px;
 }
 
-.card {
-  background: linear-gradient(135deg, var(--principal), #2d003d);
-  border-radius: 20px;
-  padding: 25px;
-  margin: 15px auto;
-  max-width: 520px;
+.market-card{
+  background:white;
+  color:black;
+  padding:15px;
+  border-radius:15px;
 }
 
-.fundo {
-  min-height: 70vh;
+nav{
+  position:fixed;
+  bottom:10px;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
 }
 
-input, button {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 12px;
-  border: none;
+nav button{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:var(--primary);
+  color:white;
+  border:none;
 }
 
-button {
-  background: var(--principal);
-  color: white;
+.btn-verde{border:2px solid green}
+.btn-vermelho{border:2px solid red}
+
+.planos{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  justify-content:center;
 }
 
-nav {
-  position: fixed;
-  bottom: 10px;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
+.plano{
+  border:2px solid gold;
+  padding:15px;
+  width:200px;
 }
 
-nav button {
-  background: var(--principal);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 20px;
+.vip{transform:scale(1.05)}
+
+#configModal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
 }
 
-/* INTRO */
-#intro {
-  position: fixed;
-  inset: 0;
-  background: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-#intro-dollar {
-  font-size: 80px;
-  animation: mover 2s forwards;
-}
-
-#intro-text {
-  position: absolute;
-  font-size: 40px;
-  left: 50%;
-  opacity: 0;
-  animation: texto 2s forwards 1.5s;
-}
-
-@keyframes mover {
-  to { transform: translateX(120px); }
-}
-
-@keyframes texto {
-  to { opacity: 1; }
-}
-
-/* TRANSIÇÃO */
-#transition {
-  position: fixed;
-  inset: 0;
-  background: black;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-
-#transition-dollar {
-  font-size: 60px;
-  color: purple;
-  animation: girar 1s;
-}
-
-@keyframes girar {
-  from { transform: rotate(0); }
-  to { transform: rotate(720deg); }
-}
-
-.premium {
-  border: 2px solid gold;
-}
-
-.plano {
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid gold;
-}
-
-.vip {
-  background: #111;
+.configBox{
+  background:white;
+  color:black;
+  padding:20px;
+  border-radius:15px;
+  max-width:300px;
+  margin:80px auto;
 }
