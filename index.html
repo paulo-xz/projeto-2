@@ -24,67 +24,20 @@ body{
   background:var(--fundo);
   color:var(--texto);
   overflow-x:hidden;
-  transition:.3s;
 }
 
-/* FUNDO DECORATIVO */
-body::before{
-  content:"$";
-  position:fixed;
-  font-size:420px;
-  left:-160px;
-  top:120px;
-  color:rgba(150,0,255,0.08);
-  z-index:-1;
-}
+/* FUNDO CELULAR + GRÁFICO */
 body::after{
-  content:"$";
+  content:"";
   position:fixed;
-  font-size:360px;
-  right:-120px;
-  bottom:-120px;
-  color:rgba(150,0,255,0.05);
+  right:-60px;
+  top:120px;
+  width:260px;
+  height:460px;
+  background:linear-gradient(180deg,var(--primaria),transparent);
+  opacity:.25;
+  clip-path:polygon(20% 0,80% 0,100% 100%,0 100%);
   z-index:-1;
-}
-
-/* INTRO */
-#intro{
-  position:fixed;
-  inset:0;
-  background:black;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-}
-#intro h1{
-  font-size:56px;
-  background:linear-gradient(90deg,#000,var(--primaria));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-#intro p{color:#aaa;margin-top:10px}
-
-/* TRANSIÇÃO */
-#transicao{
-  position:fixed;
-  inset:0;
-  background:black;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:9998;
-}
-#transicao span{
-  font-size:72px;
-  color:var(--primaria);
-  animation:saltar 1.2s;
-}
-@keyframes saltar{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-80px)}
-  100%{transform:translateY(0)}
 }
 
 /* HEADER */
@@ -92,6 +45,21 @@ header{
   text-align:center;
   padding:14px;
   border-bottom:2px solid var(--primaria);
+}
+
+/* NAV TOPO */
+#topNav{
+  display:flex;
+  justify-content:space-around;
+  background:var(--primaria);
+  padding:10px;
+}
+#topNav button{
+  background:none;
+  border:none;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 /* SECTIONS */
@@ -117,58 +85,23 @@ input,button,select{
   margin:6px 0;
   border:none;
   border-radius:12px;
-  font-size:14px;
 }
 button{
   background:var(--primaria);
   color:white;
-  cursor:pointer;
 }
 
-/* NAV */
-nav{
-  position:fixed;
-  bottom:10px;
-  width:100%;
-  display:flex;
-  justify-content:space-around;
+/* PREMIUM FIXO */
+#premium .card{
+  background:linear-gradient(135deg,#000,#d4af37);
+  color:black;
 }
-nav button{
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  font-size:18px;
-}
-
-/* CONFIG */
-#configBtn{
-  position:fixed;
-  right:15px;
-  top:50%;
-  transform:translateY(-50%);
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  background:var(--primaria);
-  color:white;
-}
-
-/* HISTÓRICO */
-.registro{
-  border:2px solid;
-  padding:8px;
-  border-radius:10px;
-  margin-top:6px;
-  font-size:14px;
-}
-.verde{border-color:var(--verde)}
-.vermelho{border-color:var(--vermelho)}
 
 /* MODAL */
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.8);
+  background:rgba(0,0,0,.85);
   display:none;
   justify-content:center;
   align-items:center;
@@ -181,46 +114,50 @@ nav button{
   border-radius:20px;
   width:90%;
   max-width:420px;
-  border:3px solid var(--primaria);
 }
 </style>
 </head>
 
 <body>
 
-<!-- INTRO -->
-<div id="intro">
-  <h1>MyMoney$</h1>
-  <p>Aguardando...</p>
+<!-- LOGIN OBRIGATÓRIO -->
+<div id="login" class="modal">
+  <div class="modal-box">
+    <h2>Cadastro obrigatório</h2>
+    <input id="nomeUser" placeholder="Nome">
+    <input id="emailUser" placeholder="Email">
+    <button onclick="entrar()">Entrar</button>
+  </div>
 </div>
-
-<!-- TRANSIÇÃO -->
-<div id="transicao"><span>$</span></div>
 
 <header>
   <h1>MyMoney$</h1>
 </header>
 
+<!-- NAV TOPO -->
+<div id="topNav">
+  <button onclick="trocarAba('reflexao')">Início</button>
+  <button onclick="trocarAba('perfil')">Perfil</button>
+  <button onclick="trocarAba('progresso')">Financeiro</button>
+  <button onclick="trocarAba('simulacao')">Simulação</button>
+  <button onclick="trocarAba('premium')">Premium</button>
+</div>
+
 <!-- REFLEXÃO -->
 <section id="reflexao" class="ativa">
   <div class="card">Quem controla o dinheiro, controla o futuro.</div>
   <div class="card">Economizar é disciplina, não sorte.</div>
-  <div class="card">Liberdade financeira começa agora.</div>
 </section>
 
 <!-- PERFIL -->
 <section id="perfil">
   <div class="card">
-    <input id="salario" type="number" placeholder="Salário mensal">
-    <input id="gastos" type="number" placeholder="Gastos mensais">
-    <input id="meta" type="number" placeholder="Meta financeira">
-    <input id="meses" type="number" placeholder="Meses para atingir">
-    <button onclick="calcular()">Calcular</button>
-    <p id="resultado"></p>
+    <p id="dadosUser"></p>
+    <button onclick="editarPerfil()">Editar perfil</button>
   </div>
 </section>
 
-<!-- PROGRESSO -->
+<!-- PROGRESSO (SEU ORIGINAL) -->
 <section id="progresso">
   <div class="card">
     <canvas id="grafico" width="320" height="200"></canvas>
@@ -230,130 +167,84 @@ nav button{
   </div>
 </section>
 
-<!-- PREMIUM -->
-<section id="premium">
+<!-- SIMULAÇÃO -->
+<section id="simulacao">
   <div class="card">
-    <h2>MyMoney$PRO 👑</h2>
-    ✔ Estratégias avançadas<br>
-    ✔ Perfis empresariais<br>
-    ✔ Crescimento acelerado
+    <h2>Simulação de Empresas</h2>
+    <select id="empresa"></select>
+    <button onclick="adotarEmpresa()">Acompanhar</button>
+    <div id="empresaInfo"></div>
   </div>
 </section>
 
-<!-- NAV -->
-<nav>
-  <button onclick="trocarAba('reflexao')">❓</button>
-  <button onclick="trocarAba('perfil')">👤</button>
-  <button onclick="trocarAba('progresso')">📈</button>
-  <button onclick="trocarAba('premium')">👑</button>
-</nav>
-
-<button id="configBtn" onclick="abrirConfig()">⚙️</button>
-
-<!-- CONFIG -->
-<div id="configModal" class="modal">
-  <div class="modal-box">
-    <h3>Tema do App</h3>
-    <select onchange="trocarTema(this.value)">
-      <option value="roxo">Preto & Roxo</option>
-      <option value="verde">Preto & Verde</option>
-      <option value="branco">Branco & Verde</option>
-    </select>
-    <button onclick="fecharConfig()">Fechar</button>
+<!-- PREMIUM -->
+<section id="premium">
+  <div class="card">
+    <h2>MyMoney$ PRO 👑</h2><br>
+    🥉 Básico – até 3 empresas<br><br>
+    🥈 Médio – alertas + histórico<br><br>
+    👑 VIP – tudo liberado + IA<br><br>
+    <button>Assinar</button>
   </div>
-</div>
+</section>
 
 <script>
-/* INTRO SEGURA */
-setTimeout(()=>intro.style.display="none",1800);
-
-/* TRANSIÇÃO */
-const transicaoDiv=document.getElementById("transicao");
-function transicao(){
-  transicaoDiv.style.display="flex";
-  setTimeout(()=>transicaoDiv.style.display="none",1200);
+/* LOGIN */
+function entrar(){
+  if(!nomeUser.value||!emailUser.value) return alert("Preencha tudo");
+  localStorage.user=JSON.stringify({
+    nome:nomeUser.value,
+    email:emailUser.value,
+    plano:"free",
+    empresas:[]
+  });
+  login.style.display="none";
+  carregarPerfil();
 }
+
+/* PERFIL */
+function carregarPerfil(){
+  const u=JSON.parse(localStorage.user);
+  dadosUser.innerHTML=`Nome: ${u.nome}<br>Email: ${u.email}<br>Plano: ${u.plano}`;
+}
+function editarPerfil(){ login.style.display="flex"; }
 
 /* ABAS */
 function trocarAba(id){
-  transicao();
-  setTimeout(()=>{
-    document.querySelectorAll("section").forEach(s=>s.classList.remove("ativa"));
-    document.getElementById(id).classList.add("ativa");
-  },600);
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("ativa"));
+  document.getElementById(id).classList.add("ativa");
 }
 
-/* DADOS */
-let rendaTotal=0;
-let gastoTotal=0;
+/* SIMULAÇÃO */
+const empresas=[
+ {nome:"Apple",lucro:12},
+ {nome:"Nike",lucro:8},
+ {nome:"Tesla",lucro:-4},
+ {nome:"Microsoft",lucro:10}
+];
+empresas.forEach(e=>empresa.innerHTML+=`<option>${e.nome}</option>`);
 
-/* CÁLCULO */
-function calcular(){
-  const s=+salario.value||0;
-  const g=+gastos.value||0;
-  const m=+meta.value||0;
-  const me=+meses.value||1;
-
-  const sobra=s-g;
-  const porMes=m/me;
-  resultado.innerText=`Guardar $${porMes.toFixed(2)} por mês`;
-
-  if(porMes>sobra) trocarAba("premium");
-}
-
-/* HISTÓRICO + GRÁFICO */
-function novaEntrada(tipo){
-  const v=+prompt("Digite o valor");
-  if(!v) return;
-
-  const d=new Date();
-  if(tipo==="renda") rendaTotal+=v;
-  else gastoTotal+=v;
-
-  const div=document.createElement("div");
-  div.className=`registro ${tipo==="renda"?"verde":"vermelho"}`;
-  div.innerHTML=`$${v.toFixed(2)}<br>${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
-  historico.prepend(div);
-
-  desenharGrafico();
-}
-
-/* GRÁFICO REAL */
-function desenharGrafico(){
-  const c=document.getElementById("grafico");
-  const ctx=c.getContext("2d");
-  ctx.clearRect(0,0,c.width,c.height);
-
-  const max=Math.max(rendaTotal,gastoTotal,1);
-  const rendaAlt=(rendaTotal/max)*150;
-  const gastoAlt=(gastoTotal/max)*150;
-
-  ctx.fillStyle="#00ff88";
-  ctx.fillRect(80,180-rendaAlt,40,rendaAlt);
-
-  ctx.fillStyle="#ff4444";
-  ctx.fillRect(180,180-gastoAlt,40,gastoAlt);
-}
-
-/* CONFIG */
-function abrirConfig(){configModal.style.display="flex"}
-function fecharConfig(){configModal.style.display="none"}
-
-function trocarTema(t){
-  if(t==="verde"){
-    document.documentElement.style.setProperty("--primaria","#00ff88");
-    document.documentElement.style.setProperty("--card","#003a22");
-    document.body.style.background="#000";
+function adotarEmpresa(){
+  const u=JSON.parse(localStorage.user);
+  if(u.plano==="free"&&u.empresas.length>=1){
+    alert("Plano free permite apenas 1 empresa");
+    trocarAba("premium"); return;
   }
-  if(t==="branco"){
-    document.documentElement.style.setProperty("--primaria","#00aa55");
-    document.documentElement.style.setProperty("--card","#e8fff1");
-    document.body.style.background="#fff";
-    document.body.style.color="#000";
-  }
-  if(t==="roxo"){
-    location.reload();
-  }
+  u.empresas.push(empresa.value);
+  localStorage.user=JSON.stringify(u);
+
+  const l=empresas.find(e=>e.nome===empresa.value).lucro;
+  empresaInfo.innerHTML=`<p style="color:${l>=0?'#00ff88':'#ff4444'}">
+    ${empresa.value} • ${l}% ao ano
+  </p>`;
+}
+
+/* INICIO */
+if(localStorage.user){
+  login.style.display="none";
+  carregarPerfil();
+}else{
+  login.style.display="flex";
 }
 </script>
 
