@@ -12,8 +12,6 @@
   --vermelho:#ff4444;
   --amarelo:#ffcc00;
   --azul:#3fa9ff;
-  --preto:#000;
-  --branco:#fff;
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -22,7 +20,6 @@ body{
   font-family:Arial,Helvetica,sans-serif;
   background:#000;
   color:#fff;
-  overflow-x:hidden;
 }
 
 /* SPLASH */
@@ -33,11 +30,30 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  z-index:9999;
+  z-index:1000;
 }
 #splash h1{
   font-size:64px;
   color:var(--roxo);
+}
+
+/* LOGIN */
+#login{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.9);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:900;
+}
+#login .box{
+  background:#fff;
+  color:#000;
+  padding:20px;
+  border-radius:20px;
+  width:90%;
+  max-width:420px;
 }
 
 /* HEADER */
@@ -65,7 +81,7 @@ header{
 /* SECTIONS */
 section{
   display:none;
-  padding:30px 20px;
+  padding:25px;
   max-width:900px;
   margin:auto;
 }
@@ -87,7 +103,6 @@ input,select,button,textarea{
   border:none;
   border-radius:10px;
 }
-
 button{
   background:var(--roxo);
   color:#fff;
@@ -95,43 +110,21 @@ button{
 }
 
 /* HISTÓRICO */
-.registro{
-  padding:10px;
-  border-radius:10px;
-  margin-top:6px;
-}
+.registro{padding:10px;border-radius:10px;margin-top:6px}
 .gasto{background:#330000;color:var(--vermelho)}
 .ganho{background:#003300;color:var(--verde)}
 .emergencia{background:#332200;color:var(--amarelo)}
-
-/* MODAL */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
-}
-.modal-box{
-  background:#fff;
-  color:#000;
-  padding:20px;
-  border-radius:20px;
-  width:90%;
-  max-width:420px;
-}
 </style>
 </head>
 
 <body>
 
+<!-- SPLASH -->
 <div id="splash"><h1>MyMoney$</h1></div>
 
 <!-- LOGIN -->
-<div id="login" class="modal">
-  <div class="modal-box">
+<div id="login">
+  <div class="box">
     <h2>Cadastro</h2>
     <input id="nome" placeholder="Nome">
     <input id="email" placeholder="Email">
@@ -144,57 +137,40 @@ button{
 <header><h1>MyMoney$</h1></header>
 
 <div id="nav">
-  <button onclick="trocar('inicio')">Início</button>
-  <button onclick="trocar('financeiro')">Financeiro</button>
-  <button onclick="trocar('perfil')">Perfil</button>
+  <button onclick="trocarAba('inicio')">Início</button>
+  <button onclick="trocarAba('financeiro')">Financeiro</button>
+  <button onclick="trocarAba('perfil')">Perfil</button>
 </div>
 
 <section id="inicio" class="ativa">
   <div class="card">
-    <h2>Bem-vindo ao MyMoney$</h2><br>
+    <h2>Por que usar o MyMoney$?</h2><br>
     <p>
-Este aplicativo foi criado para pessoas que desejam assumir o controle total da sua vida financeira.
-Aqui você entende exatamente para onde seu dinheiro vai, quanto sobra e como transformar sonhos em metas reais.
-Ao utilizar o MyMoney$ diariamente, você passa a enxergar padrões de gastos, oportunidades de economia e formas reais de crescimento financeiro.
-Este não é apenas um app de números, é uma experiência de consciência financeira.
-Você define seus objetivos, acompanha sua evolução e aprende a tomar decisões melhores.
-O MyMoney$ funciona de forma simples, visual e estratégica.
-Você registra seus ganhos, gastos e emergências.
-O sistema calcula automaticamente o que você precisa guardar para atingir suas metas.
-Você visualiza tudo em gráficos claros e inteligentes.
-Com disciplina diária, pequenas ações geram grandes resultados.
-Aqui você cria o hábito de cuidar do seu dinheiro.
-Aqui você constrói liberdade financeira.
-Aqui você transforma planos em realidade.
+O MyMoney$ é um aplicativo criado para quem quer assumir o controle da própria vida financeira.
+Ele te ajuda a entender seus gastos, organizar seus ganhos e planejar seus sonhos.
+Com acompanhamento diário, você passa a tomar decisões mais conscientes.
+O app transforma números em clareza.
+Você enxerga seu dinheiro trabalhando a seu favor.
+Aqui você cria disciplina, visão e segurança.
+Pequenas mudanças geram grandes resultados.
     </p>
   </div>
 </section>
 
 <section id="financeiro">
   <div class="card">
-    <h2>Planejamento Financeiro</h2><br>
-    <p>
-O módulo financeiro do MyMoney$ foi desenvolvido para te ajudar a organizar sua vida financeira de forma prática.
-Ele analisa seus ganhos, gastos e objetivos.
-Com base nessas informações, calcula quanto você precisa guardar por mês.
-Você visualiza riscos, oportunidades e margem para imprevistos.
-Isso te dá segurança e clareza para tomar decisões.
-Quanto mais você usa, mais controle você tem.
-    </p>
-
-    <input id="objetivo" placeholder="Objetivo (ex: viajar, carro)">
-    <input id="salario" placeholder="Salário mensal" type="number">
-    <input id="saldo" placeholder="Saldo atual" type="number">
-    <input id="gastos" placeholder="Gastos mensais" type="number">
+    <h2>Planejamento Financeiro</h2>
+    <input id="objetivo" placeholder="Objetivo (ex: viajar)">
+    <input id="salario" type="number" placeholder="Salário mensal">
+    <input id="saldo" type="number" placeholder="Saldo atual">
+    <input id="gastos" type="number" placeholder="Gastos mensais">
     <select id="prazo">
       <option value="6">6 meses</option>
       <option value="12">1 ano</option>
       <option value="24">2 anos</option>
     </select>
     <button onclick="calcular()">Calcular</button>
-
     <p id="resultado"></p>
-    <canvas id="grafico" width="300" height="300"></canvas>
 
     <h3>SALDO ATUAL: $<span id="saldoAtual">0</span></h3>
 
@@ -215,32 +191,59 @@ Quanto mais você usa, mais controle você tem.
 </section>
 
 <script>
-setTimeout(()=>splash.style.display="none",2500);
+let codigoGerado = null;
 
-let codigoGerado=0;
+/* SPLASH */
+setTimeout(()=>{
+  splash.style.display="none";
+  if(!localStorage.user){
+    login.style.display="flex";
+  }
+},2500);
 
+/* LOGIN */
 function enviarCodigo(){
-  if(!nome.value||!email.value) return alert("Preencha tudo");
-  codigoGerado=Math.floor(10000+Math.random()*90000);
-  alert("Código enviado: "+codigoGerado);
+  if(!nome.value||!email.value){
+    alert("Preencha todos os campos");
+    return;
+  }
+  codigoGerado = Math.floor(10000 + Math.random()*90000);
+  alert("Código enviado (simulação): " + codigoGerado);
 }
 
 function confirmarCodigo(){
-  if(+codigo.value!==codigoGerado) return alert("Código incorreto");
-  localStorage.user=JSON.stringify({nome:nome.value,email:email.value});
+  if(Number(codigo.value)!==codigoGerado){
+    alert("Código incorreto");
+    return;
+  }
+  localStorage.user = JSON.stringify({
+    nome:nome.value,
+    email:email.value
+  });
   login.style.display="none";
-  dados.innerHTML=`Nome: ${nome.value}<br>Email: ${email.value}`;
+  carregarPerfil();
 }
 
-function trocar(id){
+/* PERFIL */
+function carregarPerfil(){
+  const u = JSON.parse(localStorage.user);
+  dados.innerHTML = `Nome: ${u.nome}<br>Email: ${u.email}`;
+}
+
+/* NAV */
+function trocarAba(id){
   document.querySelectorAll("section").forEach(s=>s.classList.remove("ativa"));
   document.getElementById(id).classList.add("ativa");
 }
 
+/* FINANCEIRO */
 function calcular(){
-  const s=+salario.value,g=+gastos.value,sl=+saldo.value,p=+prazo.value;
-  const mensal=(s-g)/p;
-  resultado.innerText=`Você deve guardar aproximadamente $${mensal.toFixed(2)} por mês`;
+  const s=+salario.value;
+  const g=+gastos.value;
+  const sl=+saldo.value;
+  const p=+prazo.value;
+  const guardar=(s-g)/p;
+  resultado.innerText=`Você deve guardar cerca de $${guardar.toFixed(2)} por mês`;
   saldoAtual.innerText=sl;
 }
 
@@ -253,7 +256,10 @@ function add(tipo){
   historico.prepend(d);
 }
 
-if(!localStorage.user) login.style.display="flex";
+/* AUTO LOGIN */
+if(localStorage.user){
+  carregarPerfil();
+}
 </script>
 
 </body>
