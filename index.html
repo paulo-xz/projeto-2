@@ -7,57 +7,57 @@
 
 <style>
 :root{
-  --primaria:#8b00ff;
-  --fundo:#000;
-  --texto:#fff;
+  --roxo:#8b00ff;
   --verde:#00ff88;
   --vermelho:#ff4444;
-  --card:#2a003a;
+  --amarelo:#ffcc00;
+  --azul:#3fa9ff;
+  --preto:#000;
+  --branco:#fff;
 }
 
-/* RESET */
-*{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
 
-/* BODY */
 body{
-  font-family:Arial, sans-serif;
-  background:var(--fundo);
-  color:var(--texto);
+  font-family:Arial,Helvetica,sans-serif;
+  background:#000;
+  color:#fff;
   overflow-x:hidden;
 }
 
-/* FUNDO CELULAR + GRÁFICO */
-body::after{
-  content:"";
+/* SPLASH */
+#splash{
   position:fixed;
-  right:-60px;
-  top:120px;
-  width:260px;
-  height:460px;
-  background:linear-gradient(180deg,var(--primaria),transparent);
-  opacity:.25;
-  clip-path:polygon(20% 0,80% 0,100% 100%,0 100%);
-  z-index:-1;
+  inset:0;
+  background:linear-gradient(90deg,#000,#1a0033);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+#splash h1{
+  font-size:64px;
+  color:var(--roxo);
 }
 
 /* HEADER */
 header{
   text-align:center;
-  padding:14px;
-  border-bottom:2px solid var(--primaria);
+  padding:15px;
+  border-bottom:2px solid var(--roxo);
 }
 
-/* NAV TOPO */
-#topNav{
+/* NAV */
+#nav{
   display:flex;
   justify-content:space-around;
-  background:var(--primaria);
+  background:var(--roxo);
   padding:10px;
 }
-#topNav button{
+#nav button{
   background:none;
   border:none;
-  color:white;
+  color:#fff;
   font-weight:bold;
   cursor:pointer;
 }
@@ -65,37 +65,44 @@ header{
 /* SECTIONS */
 section{
   display:none;
-  padding:80px 20px 130px;
+  padding:30px 20px;
+  max-width:900px;
+  margin:auto;
 }
 section.ativa{display:block}
 
 /* CARD */
 .card{
-  max-width:520px;
-  margin:15px auto;
-  background:linear-gradient(135deg,var(--primaria),var(--card));
+  background:linear-gradient(135deg,#1a0033,#000);
+  padding:20px;
   border-radius:20px;
-  padding:24px;
+  margin-bottom:20px;
 }
 
 /* INPUTS */
-input,button,select{
+input,select,button,textarea{
   width:100%;
   padding:12px;
   margin:6px 0;
   border:none;
-  border-radius:12px;
-}
-button{
-  background:var(--primaria);
-  color:white;
+  border-radius:10px;
 }
 
-/* PREMIUM FIXO */
-#premium .card{
-  background:linear-gradient(135deg,#000,#d4af37);
-  color:black;
+button{
+  background:var(--roxo);
+  color:#fff;
+  cursor:pointer;
 }
+
+/* HISTÓRICO */
+.registro{
+  padding:10px;
+  border-radius:10px;
+  margin-top:6px;
+}
+.gasto{background:#330000;color:var(--vermelho)}
+.ganho{background:#003300;color:var(--verde)}
+.emergencia{background:#332200;color:var(--amarelo)}
 
 /* MODAL */
 .modal{
@@ -103,13 +110,13 @@ button{
   inset:0;
   background:rgba(0,0,0,.85);
   display:none;
-  justify-content:center;
   align-items:center;
-  z-index:9999;
+  justify-content:center;
+  z-index:999;
 }
 .modal-box{
-  background:white;
-  color:black;
+  background:#fff;
+  color:#000;
   padding:20px;
   border-radius:20px;
   width:90%;
@@ -120,132 +127,133 @@ button{
 
 <body>
 
-<!-- LOGIN OBRIGATÓRIO -->
+<div id="splash"><h1>MyMoney$</h1></div>
+
+<!-- LOGIN -->
 <div id="login" class="modal">
   <div class="modal-box">
-    <h2>Cadastro obrigatório</h2>
-    <input id="nomeUser" placeholder="Nome">
-    <input id="emailUser" placeholder="Email">
-    <button onclick="entrar()">Entrar</button>
+    <h2>Cadastro</h2>
+    <input id="nome" placeholder="Nome">
+    <input id="email" placeholder="Email">
+    <button onclick="enviarCodigo()">Enviar código</button>
+    <input id="codigo" placeholder="Código de 5 dígitos">
+    <button onclick="confirmarCodigo()">Confirmar</button>
   </div>
 </div>
 
-<header>
-  <h1>MyMoney$</h1>
-</header>
+<header><h1>MyMoney$</h1></header>
 
-<!-- NAV TOPO -->
-<div id="topNav">
-  <button onclick="trocarAba('reflexao')">Início</button>
-  <button onclick="trocarAba('perfil')">Perfil</button>
-  <button onclick="trocarAba('progresso')">Financeiro</button>
-  <button onclick="trocarAba('simulacao')">Simulação</button>
-  <button onclick="trocarAba('premium')">Premium</button>
+<div id="nav">
+  <button onclick="trocar('inicio')">Início</button>
+  <button onclick="trocar('financeiro')">Financeiro</button>
+  <button onclick="trocar('perfil')">Perfil</button>
 </div>
 
-<!-- REFLEXÃO -->
-<section id="reflexao" class="ativa">
-  <div class="card">Quem controla o dinheiro, controla o futuro.</div>
-  <div class="card">Economizar é disciplina, não sorte.</div>
-</section>
-
-<!-- PERFIL -->
-<section id="perfil">
+<section id="inicio" class="ativa">
   <div class="card">
-    <p id="dadosUser"></p>
-    <button onclick="editarPerfil()">Editar perfil</button>
+    <h2>Bem-vindo ao MyMoney$</h2><br>
+    <p>
+Este aplicativo foi criado para pessoas que desejam assumir o controle total da sua vida financeira.
+Aqui você entende exatamente para onde seu dinheiro vai, quanto sobra e como transformar sonhos em metas reais.
+Ao utilizar o MyMoney$ diariamente, você passa a enxergar padrões de gastos, oportunidades de economia e formas reais de crescimento financeiro.
+Este não é apenas um app de números, é uma experiência de consciência financeira.
+Você define seus objetivos, acompanha sua evolução e aprende a tomar decisões melhores.
+O MyMoney$ funciona de forma simples, visual e estratégica.
+Você registra seus ganhos, gastos e emergências.
+O sistema calcula automaticamente o que você precisa guardar para atingir suas metas.
+Você visualiza tudo em gráficos claros e inteligentes.
+Com disciplina diária, pequenas ações geram grandes resultados.
+Aqui você cria o hábito de cuidar do seu dinheiro.
+Aqui você constrói liberdade financeira.
+Aqui você transforma planos em realidade.
+    </p>
   </div>
 </section>
 
-<!-- PROGRESSO (SEU ORIGINAL) -->
-<section id="progresso">
+<section id="financeiro">
   <div class="card">
-    <canvas id="grafico" width="320" height="200"></canvas>
-    <button onclick="novaEntrada('renda')">Adicionar renda</button>
-    <button onclick="novaEntrada('gasto')">Adicionar gasto</button>
+    <h2>Planejamento Financeiro</h2><br>
+    <p>
+O módulo financeiro do MyMoney$ foi desenvolvido para te ajudar a organizar sua vida financeira de forma prática.
+Ele analisa seus ganhos, gastos e objetivos.
+Com base nessas informações, calcula quanto você precisa guardar por mês.
+Você visualiza riscos, oportunidades e margem para imprevistos.
+Isso te dá segurança e clareza para tomar decisões.
+Quanto mais você usa, mais controle você tem.
+    </p>
+
+    <input id="objetivo" placeholder="Objetivo (ex: viajar, carro)">
+    <input id="salario" placeholder="Salário mensal" type="number">
+    <input id="saldo" placeholder="Saldo atual" type="number">
+    <input id="gastos" placeholder="Gastos mensais" type="number">
+    <select id="prazo">
+      <option value="6">6 meses</option>
+      <option value="12">1 ano</option>
+      <option value="24">2 anos</option>
+    </select>
+    <button onclick="calcular()">Calcular</button>
+
+    <p id="resultado"></p>
+    <canvas id="grafico" width="300" height="300"></canvas>
+
+    <h3>SALDO ATUAL: $<span id="saldoAtual">0</span></h3>
+
+    <h3>Histórico</h3>
+    <button onclick="add('gasto')">Adicionar gasto</button>
+    <button onclick="add('ganho')">Adicionar ganho</button>
+    <button onclick="add('emergencia')">Emergência</button>
     <div id="historico"></div>
   </div>
 </section>
 
-<!-- SIMULAÇÃO -->
-<section id="simulacao">
+<section id="perfil">
   <div class="card">
-    <h2>Simulação de Empresas</h2>
-    <select id="empresa"></select>
-    <button onclick="adotarEmpresa()">Acompanhar</button>
-    <div id="empresaInfo"></div>
-  </div>
-</section>
-
-<!-- PREMIUM -->
-<section id="premium">
-  <div class="card">
-    <h2>MyMoney$ PRO 👑</h2><br>
-    🥉 Básico – até 3 empresas<br><br>
-    🥈 Médio – alertas + histórico<br><br>
-    👑 VIP – tudo liberado + IA<br><br>
-    <button>Assinar</button>
+    <p id="dados"></p>
+    <button onclick="alert('Contato por Email')">Continuar com Email</button>
+    <button onclick="alert('Contato por WhatsApp')">Continuar com WhatsApp</button>
   </div>
 </section>
 
 <script>
-/* LOGIN */
-function entrar(){
-  if(!nomeUser.value||!emailUser.value) return alert("Preencha tudo");
-  localStorage.user=JSON.stringify({
-    nome:nomeUser.value,
-    email:emailUser.value,
-    plano:"free",
-    empresas:[]
-  });
+setTimeout(()=>splash.style.display="none",2500);
+
+let codigoGerado=0;
+
+function enviarCodigo(){
+  if(!nome.value||!email.value) return alert("Preencha tudo");
+  codigoGerado=Math.floor(10000+Math.random()*90000);
+  alert("Código enviado: "+codigoGerado);
+}
+
+function confirmarCodigo(){
+  if(+codigo.value!==codigoGerado) return alert("Código incorreto");
+  localStorage.user=JSON.stringify({nome:nome.value,email:email.value});
   login.style.display="none";
-  carregarPerfil();
+  dados.innerHTML=`Nome: ${nome.value}<br>Email: ${email.value}`;
 }
 
-/* PERFIL */
-function carregarPerfil(){
-  const u=JSON.parse(localStorage.user);
-  dadosUser.innerHTML=`Nome: ${u.nome}<br>Email: ${u.email}<br>Plano: ${u.plano}`;
-}
-function editarPerfil(){ login.style.display="flex"; }
-
-/* ABAS */
-function trocarAba(id){
+function trocar(id){
   document.querySelectorAll("section").forEach(s=>s.classList.remove("ativa"));
   document.getElementById(id).classList.add("ativa");
 }
 
-/* SIMULAÇÃO */
-const empresas=[
- {nome:"Apple",lucro:12},
- {nome:"Nike",lucro:8},
- {nome:"Tesla",lucro:-4},
- {nome:"Microsoft",lucro:10}
-];
-empresas.forEach(e=>empresa.innerHTML+=`<option>${e.nome}</option>`);
-
-function adotarEmpresa(){
-  const u=JSON.parse(localStorage.user);
-  if(u.plano==="free"&&u.empresas.length>=1){
-    alert("Plano free permite apenas 1 empresa");
-    trocarAba("premium"); return;
-  }
-  u.empresas.push(empresa.value);
-  localStorage.user=JSON.stringify(u);
-
-  const l=empresas.find(e=>e.nome===empresa.value).lucro;
-  empresaInfo.innerHTML=`<p style="color:${l>=0?'#00ff88':'#ff4444'}">
-    ${empresa.value} • ${l}% ao ano
-  </p>`;
+function calcular(){
+  const s=+salario.value,g=+gastos.value,sl=+saldo.value,p=+prazo.value;
+  const mensal=(s-g)/p;
+  resultado.innerText=`Você deve guardar aproximadamente $${mensal.toFixed(2)} por mês`;
+  saldoAtual.innerText=sl;
 }
 
-/* INICIO */
-if(localStorage.user){
-  login.style.display="none";
-  carregarPerfil();
-}else{
-  login.style.display="flex";
+function add(tipo){
+  const v=+prompt("Valor:");
+  if(!v) return;
+  const d=document.createElement("div");
+  d.className=`registro ${tipo}`;
+  d.innerText=`${tipo.toUpperCase()}: $${v}`;
+  historico.prepend(d);
 }
+
+if(!localStorage.user) login.style.display="flex";
 </script>
 
 </body>
